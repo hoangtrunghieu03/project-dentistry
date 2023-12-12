@@ -25,6 +25,7 @@ import Thongtinuser from './pages/thong-tin-nguoi-dung';
 import Suanguoidung from './pages/sua-nguoi-dung';
 import Datlichnguoidung from './pages/dat-lich-nguoi-dung';
 import Lichhennguoidung from './pages/lich-hen-nguoi-dung';
+import Lichsukhambenh from './pages/lich-su-kham-benh';
 import Hosonguoidung from './pages/ho-so-nguoi-dung';
 import Hosonguoidungdetail from './pages/ho-do-nguoi-dung-detail';
 
@@ -154,6 +155,12 @@ function App() {
         <PrivateRoute
           path="/lich-hen-nguoi-dung"
           component={Lichhennguoidung}
+          allowedStatus="nguoi-dung"
+        />
+
+        <PrivateRoute
+          path="/lich-su-kham-benh"
+          component={Lichsukhambenh}
           allowedStatus="nguoi-dung"
         />
 

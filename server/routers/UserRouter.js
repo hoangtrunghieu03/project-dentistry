@@ -1,5 +1,5 @@
 import express from 'express'
-import {getAllUser, registerUser, login, DeleteUser, updateUser, schedule, appointment, deleteappoin, allhoadon, hoadondetail} from '../controllers/UserController.js'
+import {getAllUser, registerUser, login, DeleteUser, updateUser, schedule, appointment, deleteappoin, allhoadon, hoadondetail, historyappointment} from '../controllers/UserController.js'
 const UserRouter = express.Router()
 import {isAuth, isAdmin} from '../untils/until.js'
 
@@ -12,6 +12,7 @@ UserRouter.delete('/delete/:id', DeleteUser)
 
 UserRouter.post('/dat-lich/:userId', schedule)
 UserRouter.get('/lich-hen/:userId', appointment )
+UserRouter.get('/lich-su/:userId', historyappointment )
 UserRouter.delete('/xoa-lich-hen/:appoinId', deleteappoin )
 
 UserRouter.get('/hoa-don/:userId', allhoadon )

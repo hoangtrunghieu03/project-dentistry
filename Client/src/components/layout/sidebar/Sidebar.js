@@ -33,6 +33,13 @@ function Sidebar(props) {
       </li>
 
       <li className="list">
+        <a href="/lich-su-kham-benh">
+          <i className="ti-announcement"></i>
+          <span className="link_name">Lịch sử</span>
+        </a>
+      </li>
+
+      <li className="list">
         <a href="/dat-lich-nguoi-dung">
           <i className="ti-calendar"></i>
           <span className="link_name">Đặt lịch</span>

@@ -5,7 +5,8 @@ import {
   UserSigninReducer,
   UserSignupReducer,
   getAppointmentsUser,
-  getAllhosoNguoidung
+  getAllhosoNguoidung,
+  getHistoryappointment
 } from "./reducers/UserReducer";
 
 import {
@@ -86,6 +87,7 @@ const reducer = combineReducers({
   userSignup: UserSignupReducer,
   appointments: getAppointmentsUser,
   hosonguoidungs: getAllhosoNguoidung,
+  hitoryhoso: getHistoryappointment,
 
   letan: getAppointmentLetan,
   letans: getAppointmentsLetan,

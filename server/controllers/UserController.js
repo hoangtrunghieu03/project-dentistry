@@ -183,6 +183,15 @@ export const appointment = expressAsyncHandler(async (req, res) => {
     await res.status(201).send(appointments);
 });
 
+export const historyappointment = expressAsyncHandler(async (req, res) => {
+    const user_Id = req.params.userId;
+
+    const appointments = await ScheduleModel.find({ user_Id: user_Id, status : 'lich-su' });
+
+    // Trả về mảng bản ghi trực tiếp thay vì đặt chúng trong một đối tượng
+    await res.status(201).send(appointments);
+});
+
 export const deleteappoin = expressAsyncHandler(async (req, res) => {
     const appoinId = req.params.appoinId;
     res.json(appoinId)

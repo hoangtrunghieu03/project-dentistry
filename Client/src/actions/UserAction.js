@@ -5,8 +5,25 @@ import { useSelector } from 'react-redux';
       try {
         const {data} = await axios.post('http://localhost:4000/user/login', user)
         console.log(data)
-        dispatch({ type: 'USER_LOGIN_SUCCESS', payload: data });  
+        dispatch({ type: 'np ', payload: data });  
         localStorage.setItem('userInfo', JSON.stringify(data));
+        if (data) {
+          if (data.status === 'admin') {
+            document.location.href = "/doanh-thu-trong-trong-ngay";
+          } else if (data.status === 'nguoi-dung') {
+            document.location.href = "/thong-tin-nguoi-dung";
+          } else if (data.status === 'le-tan') {
+            document.location.href ="/tiep-nhan-le-tan";
+          } else if (data.status === 'chuan-doan') {
+            document.location.href = "/tiep-nhan-chuan-doan";
+          } else if (data.status === 'thuc-hien') {
+            document.location.href = "/tiep-nhan-thuc-hien";
+          } else if (data.status === 'thu-ngan') {
+            document.location.href = "/ho-so-thanh-toan";
+          } else {
+            document.location.href = "/";
+          }
+        }
       } catch (error) {
         console.log(error.response.data.message)
         dispatch({ type: 'USER_LOGIN_FAIL', payload: error.response.data.message });
@@ -96,6 +113,16 @@ export const getAppointments = (user_Id) => async (dispatch) => {
   try {
     const {data} = await  axios.get(`http://localhost:4000/user/lich-hen/${user_Id}`)
     dispatch({type: 'GET_ALL_APPOINTMENT_USER', payload: data})
+  } catch (error) {
+    dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
+  }
+}
+
+export const getHistoryappointment = (user_Id) => async (dispatch) => {
+  try {
+    const {data} = await  axios.get(`http://localhost:4000/user/lich-su/${user_Id}`)
+    console.log(data)
+    dispatch({type: 'GET_ALL_HISTORY_APPOINTMENT_USER', payload: data})
   } catch (error) {
     dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
   }

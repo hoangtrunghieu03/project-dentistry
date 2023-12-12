@@ -52,6 +52,16 @@ export const getAppointmentsUser = (state = {}, action) => {
   }
 };
 
+export const getHistoryappointment = (state = {}, action) => {
+  switch (action.type) {
+    case "GET_ALL_HISTORY_APPOINTMENT_USER": {
+      return { ...state, historyappoint: action.payload };
+    }
+    default:
+      return state;
+  }
+};
+
 export const getAllhosoNguoidung = (state = {}, action) => {
   switch (action.type) {
     case "GET_ALL_HOSO": {
