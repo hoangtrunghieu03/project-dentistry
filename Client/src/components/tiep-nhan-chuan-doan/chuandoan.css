@@ -1,0 +1,25 @@
+.content-wrappers {
+    color: #000;
+    margin-left: 80px;
+}
+
+.content-wrappers textarea {
+    width: 400px;
+    height: 90px;
+}
+
+.content-wrappers {
+    padding: 20px 70px;
+    width: 550px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.content-wrappers h1 {
+    text-align: center;
+}
+
+.service {
+    width: 150px;
+}
+
+

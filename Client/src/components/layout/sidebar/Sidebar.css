@@ -1,0 +1,216 @@
+
+/*  .logo-details .logo_name {
+  max-width: 40%;
+  margin-left: 20px;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+.close .logo-details .logo_name {
+  transition-delay: 0s;
+  opacity: 0;
+  pointer-events: none;
+} */
+ .nav-links {
+  height: 100%;
+  padding-top: 30px;
+  overflow: auto;
+}
+.close .nav-links {
+  overflow: visible;
+}
+ .nav-links::-webkit-scrollbar {
+  display: none;
+}
+ .nav-links li {
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
+}
+/*  .nav-links li:active {
+  color: #ed9c32;
+} */
+ .nav-links li .iocn-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.close .nav-links li .iocn-link {
+  display: block;
+}
+ .nav-links li i {
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #313131;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+ .nav-links li.showMenu i.arrow {
+  transform: rotate(90deg);
+}
+.close .nav-links i.arrow {
+  display: none;
+}
+ .nav-links li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/*  .nav-links li a:hover {
+  color: orange !important;
+} */
+
+ .nav-links li.list:hover .link_name,
+ .nav-links li.list:hover i {
+  color: orange;
+}
+ .nav-links li a .link_name {
+  font-size: 18px;
+  font-weight: 400;
+  color: #313131;
+  transition: all 0.4s ease;
+}
+.close .nav-links li a .link_name {
+  opacity: 0;
+  pointer-events: none;
+}
+.nav-links li .sub-menu {
+  padding: 6px 6px 14px 80px;
+  margin-top: -10px;
+  background: white;
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.nav-links li .sub-menu.show {
+  display: block;
+  max-height: 500px;
+}
+
+
+/*  .nav-links li .sub-menu li {
+  list-style-type: disc;
+  display: flex;
+  color: #313131;
+} */
+ .nav-links li.showMenu .sub-menu {
+  display: block;
+}
+ .nav-links li .sub-menu a {
+  color: #313131;
+  font-size: 15px;
+  padding: 5px 0;
+  white-space: nowrap;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+ .nav-links li .sub-menu a:hover {
+  opacity: 1;
+}
+.close .nav-links li .sub-menu {
+  position: absolute;
+  left: 100%;
+  top: -10px;
+  margin-top: 0;
+  padding: 10px 20px;
+  border-radius: 0 6px 6px 0;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+  transition: 0s;
+}
+.close .nav-links li:hover .sub-menu {
+  top: 0;
+  opacity: 1;
+  pointer-events: auto;
+  transition: all 0.4s ease;
+}
+ .nav-links li .sub-menu .link_name {
+  display: none;
+}
+.close .nav-links li .sub-menu .link_name {
+  font-size: 18px;
+  opacity: 1;
+  display: block;
+}
+ .nav-links li .sub-menu.blank {
+  opacity: 1;
+  pointer-events: auto;
+  padding: 3px 20px 6px 16px;
+  opacity: 0;
+  pointer-events: none;
+}
+ .nav-links li:hover .sub-menu.blank {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media screen and (max-width: 400px) {
+
+  .close {
+    width: 78px;
+  }
+  /*  .profile-details {
+    width: 240px;
+  }
+  .close .profile-details {
+    background: none;
+  }
+  .close .profile-details {
+    width: 78px;
+  }
+  .home-section {
+    left: 240px;
+    width: calc(100% - 240px);
+  }
+  .close ~ .home-section {
+    left: 78px;
+    width: calc(100% - 78px);
+  } */
+}
+
+@media screen and (max-width: 768px) {
+  /* Khi kích thước màn hình nhỏ hơn hoặc bằng 768px */
+
+  .close {
+    width: 78px; /* Điều chỉnh chiều rộng của sidebar khi nó đóng lại */
+  }
+
+   .logo-details .logo_name {
+    opacity: 1; /* Hiển thị tên logo */
+  }
+
+   .nav-links {
+    padding: 30px 0; /* Điều chỉnh khoảng cách giữa các mục trong sidebar */
+  }
+
+   .nav-links li .iocn-link {
+    display: block; /* Hiển thị các liên kết */
+  }
+
+   .nav-links li i.arrow {
+    display: none; /* Ẩn mũi tên bên phải của các mục có submenu */
+  }
+
+   .nav-links li .sub-menu {
+    position: static; /* Đặt lại vị trí của submenu */
+    left: auto;
+    top: auto;
+    margin-top: 0;
+    padding: 0;
+    border-radius: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transition: 0s;
+    display: block; /* Hiển thị submenu */
+  }
+
+   .nav-links li .sub-menu .link_name {
+    font-size: 14px; /* Điều chỉnh kích thước font chữ của các submenu */
+  }
+}

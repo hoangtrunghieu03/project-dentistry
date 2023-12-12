@@ -1,0 +1,220 @@
+
+.staff4{
+    display: flex; 
+    align-items: center;
+}
+
+.material-symbols-outlined{
+    font-weight: bold; 
+    margin-left: 67%;
+}   
+
+.staff4, .more4 {
+    margin-bottom: 40px; 
+}
+
+.more4{
+    display: flex; 
+    align-items: center;
+    margin-left: 25px;
+}
+
+.add-button4 {
+    padding: 10px 15px; 
+    background-color: #6171dc; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-left: 60%;
+}
+.ellipsis-button4{
+    margin-left: 515px;
+    padding: 4px 5px; 
+}
+
+.conditon4{
+    margin-left: 25px;
+    margin-top: 20px;
+    
+}
+
+.but4 {
+    float: right;
+    margin-right: 2%;
+    margin-top: -61px;
+    position: relative;
+   
+}
+
+.condition4 {
+    height: 30px;
+    width: 23%;
+    border-radius: 3px #EEEEEE;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.but4 input#search4{
+    height: 30px; 
+    width: 750px;
+    padding-left: 25px;
+    letter-spacing: 1px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.but .icon{
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    z-index: 1;
+    color: #CCCCCC;
+}
+.table_class4 td {
+    text-align: left;
+}
+
+.table_lich4 {
+    width: 100%;
+    margin-top: -35px;
+    
+   
+} 
+.table_class4{
+   width: 100%;
+   border-collapse: collapse;
+   margin-top: 5%;
+
+}
+.table_thead4{
+    border: 1px solid  #ccc9c9;
+    
+
+}
+td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+   
+}
+
+th, .table_class4 td {
+    background-color: white;
+    border:none;
+    padding: 8px;
+
+}
+
+@media screen and (max-width: 900px ) {
+    .staff4 .material-symbols-outlined  {
+       margin-left: 40%;
+    }
+
+    .more4 .add-button4{
+        margin-left:30%;
+    }
+    
+    .but4.but4 input#search4   {
+        width:400px;
+        margin-left: 200px;
+    }
+    
+}
+@media screen and (max-width: 768px ) {
+    .staff4 .material-symbols-outlined{
+        margin-left: 38%;
+    }
+
+    .add-button4{
+        margin-left:15%;
+    }
+    .conditon4{
+        width: 600px;
+    }
+    .but4.but4 input#search4   {
+        width:400px;
+        margin-left: 200px;
+    }
+}
+@media screen and (max-width: 430px ) {
+     .footer .menu{
+        display: none;
+    }
+    .staff4 .h2nv{
+        margin-top: -56px;
+        margin-right: -89px;
+    }
+    .staff4 .material-symbols-outlined {
+        margin-top: 7px;
+        margin-left: -92px;
+    }
+    
+    h5 {
+        margin-top: 6px;
+        margin-left: 2px;
+    }
+    
+    .more4 .add-button4{
+        margin-top: -6px;
+        margin-left: 47px;
+    }
+    .h2ds{
+        margin-top: -5px;
+        margin-left: -42px;
+        font-size: 20px;
+    }
+    
+    .but4.but4  input#search4{
+        width:308px;
+        margin-top: 70px;
+        
+    }
+    .table_class4 th:nth-child(3),
+    .table_class4 td:nth-child(3),
+    .table_class4 th:nth-child(4),
+    .table_class4 td:nth-child(4),
+    .table_class4 th:nth-child(5),
+    .table_class4 td:nth-child(5),
+    .table_class4 th:nth-child(6),
+    .table_class4 td:nth-child(6) {
+      display: none;
+    }
+}
+@media screen and (max-width: 369px ) {
+    .footer .menu{
+       display: none;
+   }
+   .staff4 .h2nv{
+       margin-top: -56px;
+       margin-right: -89px;
+   }
+   .staff4 .material-symbols-outlined {
+       margin-top: 7px;
+       margin-left: -85px;
+   }
+   
+   h5 {
+       margin-top: 6px;
+       margin-left: 2px;
+   }
+   
+   .more4 .add-button4{
+       margin-top: -9px;
+       font-size: 8px;
+   }
+   .h2ds{
+       margin-top: -5px;
+       margin-left: -42px;
+       font-size: 20px;
+   }
+   
+   .but4.but4  input#search4{
+       width:270px;
+       margin-top: 70px;
+       
+   }
+
+}   

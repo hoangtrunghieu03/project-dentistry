@@ -1,0 +1,48 @@
+.sua {
+    margin: 20px 0 0 100px;
+}
+
+.sua h1 {
+    color: #000;
+}
+
+.from_sua {
+    margin: 40px 0 0 70px;
+}
+
+.from_sua span {
+    color: #000;
+    font-weight: 550;
+}
+
+.from_sua .input_sua {
+    margin: 10px 0 15px;
+}
+
+.from_sua .input_sua input {
+    padding: 9px 0 9px 20px;
+    width: 450px;
+}
+
+.from_sua .sua__submit {
+    cursor: pointer;
+    border-radius: 3px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 10px;
+}
+
+.success {
+    color: green;
+    font-size: 10px;
+}

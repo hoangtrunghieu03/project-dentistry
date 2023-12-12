@@ -1,0 +1,50 @@
+.datlich {
+    margin: 20px 0 0 100px;
+}
+
+.datlich h1 {
+    color: #000;
+}
+
+.input_date .tell {
+    padding: 8px 5px;
+    border-radius: 7px;
+}
+.from_datlich {
+    margin: 40px 0 0 70px;
+}
+
+.from_datlich .input_date span {
+    color: #000;
+    font-weight: 550;
+}
+
+.from_datlich input {
+    margin-left: 40px;
+}
+
+.from_datlich .service {
+    width: 150px;
+    margin-left: 20px;
+}
+
+.from_datlich .input_date {
+    margin: 10px 0 20px;
+}
+
+.from_datlich .datlich__submit {
+    cursor: pointer;
+    border-radius: 3px;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.from_datlich .datlich__submit span {
+    color: #000;
+}

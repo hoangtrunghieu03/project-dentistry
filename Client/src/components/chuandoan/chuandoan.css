@@ -1,0 +1,120 @@
+.chuandoan .staff{
+    display: flex; 
+    align-items: center;
+    color: #000;
+}
+
+.chuandoan  .material-symbols-outlined {
+    font-weight: bold; 
+    margin-left: 74%;
+}
+
+.chuandoan  .staff, .more {
+    color: #000;
+    margin-bottom: 40px; 
+}
+
+.chuandoan  .more{
+    display: flex; 
+    align-items: center;
+    margin-left: 50px;
+}
+
+.chuandoan  .add-button {
+    padding: 10px 15px; 
+    background-color: #6171dc; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-left: 788px;
+}
+.chuandoan  .ellipsis-button{
+    margin-left: 515px;
+    padding: 4px 5px; 
+}
+
+.chuandoan  .frame {
+    border: 1px solid silver;
+    padding: 10px;
+    width: calc(33.33% - 47px);
+    height: 174px;
+    text-align: center;
+    margin: 20px 20px 0 0;
+    float: left;
+    color: #000;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.content-wrapper {
+    margin-right: -34px;
+}
+@media screen and (max-width: 900px ) {
+    .staff .material-symbols-outlined  {
+       margin-left: 376px;
+    }
+
+    .more .add-button{
+        margin-left:266px;
+    }
+    .frame {
+        width: calc(50% - 20px); 
+    }
+}
+@media screen and (max-width: 768px ) {
+    .staff .material-symbols-outlined  {
+       margin-left: 298px;
+    }
+
+    .more .add-button{
+        margin-left:187px;
+    }
+    .frame {
+        width: calc(50% - 20px); 
+    }
+}
+@media screen and (max-width: 430px ) {
+    .footer .menu{
+        display: none;
+    }
+    .staff .material-symbols-outlined  {
+       margin-left: 91px;
+    }
+    .more .add-button{
+        margin-left:25px;
+    }
+    .frame {
+        width: calc(50% - 20px); 
+    }
+}
+@media screen and (max-width: 369px ) {
+    /* .footer .menu{
+        display: none;
+    } */
+    .staff .material-symbols-outlined  {
+       margin-left: -133px;
+       margin-top: 98px;
+    }
+    h5{
+        margin-top: 103px;
+        margin-left: 2px;
+    }
+    .more .add-button{
+        margin-left:9px;
+    }
+
+    .frame {
+        width: 25px; /* Make frames take full width */
+        height: 25px;
+        box-sizing: border-box;
+        
+    }
+    .frame:nth-child(n) {
+        margin-right: 0; /* Remove margin for every third frame to create rows of three */
+    }
+}

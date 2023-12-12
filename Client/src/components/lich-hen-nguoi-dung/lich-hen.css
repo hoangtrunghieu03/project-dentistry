@@ -1,0 +1,249 @@
+
+.content {
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+}
+.content .staff4{
+    display: flex; 
+    align-items: center;
+}
+
+.h2nv {
+    color: #000;
+}
+
+.frame {
+    border-bottom: #ccc 1px solid;
+}
+
+.staff4 h5 {
+    color: #000;
+}
+
+.more4 h2 {
+    color: #000;
+}
+
+.content .material-symbols-outlined{
+
+    font-weight: bold; 
+    margin-left: 67%;
+}   
+
+.content .staff4, .more4 {
+    margin-bottom: 40px; 
+}
+
+.content .more4{
+    display: flex; 
+    align-items: center;
+    margin-left: 25px;
+}
+
+.content .add-button4 {
+    padding: 10px 15px; 
+    background-color: #6171dc; 
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    margin-left: 60%;
+}
+
+.content .add-button4 a {
+    color: #fff;
+}
+.content .ellipsis-button4{
+    margin-left: 515px;
+    padding: 4px 5px; 
+}
+
+.content .conditon4{
+    margin-left: 25px;
+    margin-top: 20px;
+    
+}
+
+.content .but4 {
+    float: right;
+    margin-right: 2%;
+    margin-top: -61px;
+    position: relative;
+   
+}
+
+.content .condition4 {
+    height: 30px;
+    width: 23%;
+    border-radius: 3px #EEEEEE;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.content .but4 input#search4{
+    height: 30px; 
+    width: 750px;
+    padding-left: 25px;
+    letter-spacing: 1px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.content .but .icon{
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    z-index: 1;
+    color: #CCCCCC;
+}
+.content .table_class4 td {
+    color: #000;
+    text-align: left;
+}
+
+.content .table_lich4 {
+    width: 100%;
+    margin-top: -35px;
+    
+   
+} 
+.content .table_class4{
+   width: 100%;
+   border-collapse: collapse;
+   margin-top: 5%;
+
+}
+.content .table_thead4{
+    border: 1px solid  #ccc9c9;
+    
+
+}
+.content td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 8px;
+   
+}
+
+.content th, .table_class4 td {
+    background-color: white;
+    border:none;
+    padding: 8px;
+
+}
+
+@media screen and (max-width: 900px ) {
+    .staff4 .material-symbols-outlined  {
+       margin-left: 40%;
+    }
+
+    .more4 .add-button4{
+        margin-left:30%;
+    }
+    
+    .but4.but4 input#search4   {
+        width:400px;
+        margin-left: 200px;
+    }
+    
+}
+@media screen and (max-width: 768px ) {
+    .staff4 .material-symbols-outlined{
+        margin-left: 38%;
+    }
+
+    .add-button4{
+        margin-left:15%;
+    }
+    .conditon4{
+        width: 600px;
+    }
+    .but4.but4 input#search4   {
+        width:400px;
+        margin-left: 200px;
+    }
+}
+@media screen and (max-width: 430px ) {
+     .footer .menu{
+        display: none;
+    }
+    .footer .content{
+        display: auto;
+    }
+    .staff4 .h2nv{
+        margin-top: -56px;
+        margin-right: -89px;
+    }
+    .staff4 .material-symbols-outlined {
+        margin-top: 7px;
+        margin-left: -41px;
+    }
+    
+    h5 {
+        margin-top: 6px;
+        margin-left: 2px;
+    }
+    
+    .more4 .add-button4{
+        margin-top: -9px;
+        margin-left: 35px;
+        font-size: 5px;
+    }
+    .h2ds{
+        margin-top: -5px;
+        margin-left: -42px;
+        font-size: 20px;
+    }
+    
+    .but4.but4  input#search4{
+        width:308px;
+        margin-top: 70px;
+        
+    }
+    .table_class4 th:nth-child(3),
+    .table_class4 td:nth-child(3),
+    .table_class4 th:nth-child(4),
+    .table_class4 td:nth-child(4),
+    .table_class4 th:nth-child(5),
+    .table_class4 td:nth-child(5) {
+      display: none;
+    }
+}
+@media screen and (max-width: 369px ) {
+    .footer .menu{
+       display: none;
+   }
+   .staff4 .h2nv{
+       margin-top: -56px;
+       margin-right: -89px;
+   }
+   .staff4 .material-symbols-outlined {
+       margin-top: 7px;
+       margin-left: -41px;
+   }
+   
+   h5 {
+       margin-top: 6px;
+       margin-left: 2px;
+   }
+   
+   .more4 .add-button4{
+       margin-top: -9px;
+       margin-left: 35px;
+       font-size: 5px;
+   }
+   .h2ds{
+       margin-top: -5px;
+       margin-left: -42px;
+       font-size: 20px;
+   }
+   
+   .but4.but4  input#search4{
+       width:270px;
+       margin-top: 70px;
+       
+   }
+
+}
