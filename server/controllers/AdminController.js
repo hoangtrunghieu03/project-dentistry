@@ -184,7 +184,7 @@ export const getnguoidungdetail = expressAsyncHandler(async (req, res) => {
 
 export const updatenguoidungdetail = expressAsyncHandler(async (req, res) => {
     const user_id = req.params.user_id;
-    const { name, email, phone, sex, status, password } = req.body;
+    const { name, email, phone, birthday, sex, status, password } = req.body;
 
     const existingUserWithPhone = await UserModel.findOne({ phone: phone, _id: { $ne: user_id } });
     if (existingUserWithPhone) {
@@ -203,6 +203,7 @@ export const updatenguoidungdetail = expressAsyncHandler(async (req, res) => {
     user.name = name;
     user.email = email;
     user.phone = phone;
+    user.birthday = birthday;
     user.sex = sex;
     user.status = statusnew;
 

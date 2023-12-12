@@ -24,6 +24,8 @@ function Suathongtinhanvien(props) {
     if (!user) {
     return <div>Loading...</div>;
     }
+    console.log(user)
+    console.log(user.birthday)
 
     const formatDate = (date) => {
         return moment(date, 'YYYY/MM/DD').format('DD/MM/YYYY');
@@ -39,9 +41,18 @@ function Suathongtinhanvien(props) {
 
   return (
     <section className="sua">
-      <h1>Sửa thông tin nhân viên</h1>
+      {user.status === 'nguoi-dung' ? (
+        <h1>Sửa thông tin người dùng</h1>
+      ) : (
+        <h1>Sửa thông tin nhân viên</h1>
+      )}
+
       <form className="from_sua" onSubmit={handleSubmit(onSubmit)}>
-        <span>Tên nhân viên</span>
+        {user.status === 'nguoi-dung' ? (
+          <span>Tên người dùng</span>
+        ) : (
+          <span>Tên nhân viên</span>
+        )}
         <div className="input_sua">
           <input type="name" 
           defaultValue={user.name}
@@ -62,6 +73,14 @@ function Suathongtinhanvien(props) {
           <input type="phone" 
           defaultValue={user.phone}
           {...register('phone')}
+          required />
+        </div>
+
+        <span>Ngày sinh</span>
+        <div className="input_sua">
+          <input type="date" 
+          {...register('birthday')} 
+          defaultValue={user.birthday}
           required />
         </div>
 

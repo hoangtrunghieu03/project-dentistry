@@ -30,7 +30,7 @@ function Nguoidung(props) {
   return (
     <div>
       <div className="more4">
-        <h2 className="h2ds">Danh sách nhân viên</h2>
+        <h2 className="h2ds">Danh sách người dùng</h2>
       </div>
       <div className="search_lich4">
         <div className="conditon4">
