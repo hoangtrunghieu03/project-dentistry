@@ -89,6 +89,12 @@ function Login(props) {
               Bạn chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
             </span>
           </div>
+
+          <div className="register">
+            <span>
+              Bạn quên mật khẩu? <Link to="/forgot">Lấy lại mật khẩu</Link>
+            </span>
+          </div>
         </div>
         {/* Background */}
         <div className="screen__background">

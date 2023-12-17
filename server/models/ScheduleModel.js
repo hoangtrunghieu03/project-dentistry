@@ -6,6 +6,7 @@ const Schedule = new Schema({
     user_Id: {type: String},
     name: {type: String},
     phone: {type: String},
+    email: {type: String},
     birthday: {type: String},
     sex: {type: String},
     date: {type: String},

@@ -45,6 +45,16 @@ function Addtiepnhan(props) {
         required />
       </div>
 
+      <div className="input_date">
+        <span>Email bệnh nhân:</span>
+        <input
+          className="tell"
+          type="email"
+          {...register('email')}
+          required
+        />
+      </div>
+
       <div className="input_date"> 
         <span>Nhập ngày sinh:</span>
         <input 
@@ -62,9 +72,9 @@ function Addtiepnhan(props) {
       {...register('sex')} 
       required
       >
-          <option value="">Chọn giới tính</option>
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>  
+        <option value="">Chọn giới tính</option>
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>  
       </select>
       </div>
       

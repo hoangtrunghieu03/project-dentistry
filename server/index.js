@@ -4,10 +4,7 @@ import dotenv from 'dotenv'
 
 import connectDB from './config/db/db.js'
 
-import ProductRouter from './routers/ProductRouter.js'
 import UserRouter from './routers/UserRouter.js'
-import OrderRouter from './routers/OrderRouter.js'
-import ChatRouter from './routers/ChatRouter.js'
 
 import {createServer} from 'http'
 // import {Server} from 'socket.io'
@@ -15,14 +12,10 @@ import {createServer} from 'http'
 import {ConnectSocket} from './config/socket/socket.js'
 
 import cloudinary from './config/cloudinary/cloudinary.js'
-import PaymentRouter from './routers/PaymentRouter.js'
-import SelectListrouter from './routers/SelectListRouter.js'
-import ListTypeProductRouter from './routers/ListTypeProductRouter.js'
 
 import Letan from './routers/LetanRouter.js'
 import Chuandoan from './routers/ChuanDoanRouter.js'
 import Thuchien from './routers/ThuchienRouter.js'
-import Thanhtoan from './routers/Thanhtoan.js'
 import Admin from './routers/AdminRouter.js'
 
 dotenv.config();
@@ -43,14 +36,7 @@ app.use('/user', UserRouter)
 app.use('/le-tan', Letan)
 app.use('/chuan-doan', Chuandoan)
 app.use('/thuc-hien', Thuchien)
-app.use('/thanh-toan', Thanhtoan)
 app.use('/admin', Admin)
-app.use('/products', ProductRouter)
-app.use('/order', OrderRouter)
-app.use('/chat', ChatRouter)
-app.use('/payment', PaymentRouter)
-app.use('/selectList', SelectListrouter)
-app.use('/typeList', ListTypeProductRouter)
 
 app.get('/api/config/paypal', (req, res) => {
     res.send(process.env.PAYPAL_CLIENT_ID || 'sb')

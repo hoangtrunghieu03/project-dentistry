@@ -3,8 +3,11 @@ import { ScheduleModel } from '../models/scheduleModel.js';
 import { generateToken } from '../untils/until.js';
 import { MedicalRecord } from '../models/ChuandoanModel.js';
 import expressAsyncHandler from 'express-async-handler';
-
+import schedule  from 'node-schedule';
+import jwt from 'jsonwebtoken'
+import { generateResetToken, sendResetEmail, sendEmailSchedule } from '../untils/authUtils.js';
 import bcrypt from 'bcryptjs';
+
 // import moment from 'moment-timezone';
 
 export const getAllUser = (req, res) => {
@@ -147,7 +150,7 @@ export const DeleteUser = expressAsyncHandler(async (req, res) => {
     }
 })
 
-export const schedule = expressAsyncHandler(async (req, res) => {
+export const schedules = expressAsyncHandler(async (req, res) => {
     const user_Id = req.params.userId;
     const {date, service, note} = req.body;
     const user = await UserModel.findById({_id: user_Id})
@@ -156,6 +159,9 @@ export const schedule = expressAsyncHandler(async (req, res) => {
         user_Id,
         name: user.name,
         phone: user.phone,
+        email: user.email,
+        birthday: user.birthday,
+        sex: user.sex,
         date,
         service,
         note,
@@ -164,24 +170,25 @@ export const schedule = expressAsyncHandler(async (req, res) => {
 
     const scheduleNew = await schedule.save();
 
-    await res.status(201).send({
-        user_Id: scheduleNew.user_Id,
-        date: scheduleNew.date,
-        service: scheduleNew.service,
-        note: scheduleNew.note,
-        satus: schedule.status
-    });
+    await res.status(201).send(scheduleNew);
     
 });
 
 export const appointment = expressAsyncHandler(async (req, res) => {
-    const user_Id = req.params.userId;
+    try {
+        const currentDate = new Date();
 
-    const appointments = await ScheduleModel.find({ user_Id: user_Id });
+        const appointments = await ScheduleModel.find({
+            status: 'nguoi-dung',
+            date: { $gt: currentDate.toISOString().split('T')[0] } 
+        }).sort({ date: 1 });
 
-    // Trả về mảng bản ghi trực tiếp thay vì đặt chúng trong một đối tượng
-    await res.status(201).send(appointments);
+        res.status(201).send(appointments);
+    } catch (error) {
+        res.status(500).send({ message: 'Lỗi server khi lấy danh sách tiếp nhận.', error });
+    }
 });
+
 
 export const historyappointment = expressAsyncHandler(async (req, res) => {
     const user_Id = req.params.userId;
@@ -224,3 +231,159 @@ export const hoadondetail = expressAsyncHandler(async (req, res) => {
 
     res.status(201).send(medicalrecord);
 });
+
+export const forgotpassword = expressAsyncHandler(async (req, res) => {
+    const { email } = req.body;
+
+    try {
+      const user = await UserModel.findOne({ email });
+  
+      if (!user) {
+        return res.json({ message: 'Email không đúng' });
+      }
+  
+      const resetToken = generateResetToken(user.email);
+      user.resetToken = resetToken; 
+      user.resetTokenExpires = new Date(Date.now() + 3600000);
+      await user.save();
+  
+      sendResetEmail(email, resetToken);
+  
+      res.json({ message: 'Email sent successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
+export const resetpassword = expressAsyncHandler(async (req, res) => {
+    const token = req.params.token;
+    const newPassword = req.body.newPassword;
+  
+    try {
+      const decodedToken = jwt.verify(token, 'resetpassword');
+      const email = decodedToken.email;
+  
+      const user = await UserModel.findOne({
+        email,
+        resetToken: token,
+        resetTokenExpires: { $gt: Date.now() },
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired token' });
+      }
+
+  
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+  
+      user.password = hashedPassword;
+      user.resetToken = null;
+      user.resetTokenExpires = null;
+      await user.save();
+  
+      res.json({ message: 'Password reset successfully' });
+    } catch (error) {
+      console.error(error);
+      if (error.name === 'TokenExpiredError') {
+        res.status(400).json({ message: 'Token expired' });
+      } else {
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    }
+});
+
+
+const sendReminderBefore3Days = async () => {
+    const threeDaysBefore = new Date();
+    threeDaysBefore.setDate(threeDaysBefore.getDate() + 4);
+    const formattedThreeDaysBefore = threeDaysBefore.toISOString().split('T')[0];
+
+    const appointments = await ScheduleModel.find({ date: formattedThreeDaysBefore, status: 'nguoi-dung' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const email = appointment.email;
+            const service = appointment.service;
+            const rawDate = appointment.date;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn khám bệnh sau 3 ngày. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trước 3 ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong vòng 3 ngày');
+    }
+};
+
+
+const sendReminderBefore1Day = async () => {
+    const oneDayBefore = new Date();
+    oneDayBefore.setDate(oneDayBefore.getDate() + 2);
+    const formattedOneDayBefore = oneDayBefore.toISOString().split('T')[0];
+    console.log(formattedOneDayBefore)
+
+    const appointments = await ScheduleModel.find({ date: formattedOneDayBefore, status: 'nguoi-dung' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const email = appointment.email;
+            const service = appointment.service;
+            const rawDate = appointment.date;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn khám bệnh sau 1 ngày. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trước 1 ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong vòng 1 ngày');
+    }
+};
+
+
+const sendReminderOnTheDay = async () => {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
+    const formattedDate = currentDate.toISOString().split('T')[0];
+
+    console.log(formattedDate)
+
+    const appointments = await ScheduleModel.find({ date: formattedDate, status: 'nguoi-dung' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const email = appointment.email;
+            const service = appointment.service;
+            const rawDate = appointment.date;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn khám bệnh hôm nay. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trong ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong ngày hôm nay');
+    }
+};
+
+
+// schedule.scheduleJob('*/5 * * * * *', checkAndSendReminder);
+
+schedule.scheduleJob('0 0 0 * * *', sendReminderBefore3Days);
+schedule.scheduleJob('0 0 0 * * *', sendReminderBefore1Day);
+schedule.scheduleJob('0 0 0 * * *', sendReminderOnTheDay);  

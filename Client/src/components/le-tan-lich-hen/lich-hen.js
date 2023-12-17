@@ -47,6 +47,7 @@ function Lichen(props) {
             <tr>
               <th>Mã bệnh nhân</th>
               <th>Tên</th>
+              <th>Số điện thoại</th>
               <th>Dịch vụ</th>
               <th>Ngày khám</th>
               <th>Ghi chú</th>
@@ -61,6 +62,7 @@ function Lichen(props) {
                 <tr className="frame" key={appoin._id}>
                   <td>{appoin.user_Id}</td>
                   <td>{appoin.name}</td>
+                  <td>{appoin.phone}</td>
                   <td>{appoin.service}</td>
                   <td>{formatDate(appoin.date)}</td>
                   <td>{appoin.note}</td>

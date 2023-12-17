@@ -93,7 +93,7 @@ export const themnguoikham = (lichhen) => async (dispatch) => {
       const {data} = await axios.put(`http://localhost:4000/le-tan/cap-nhat-tiep-nhan/${appoin_id}`, tiepnhan)
 
       console.log(data)
-      alert('cập nhật thành công.');
+      alert('Cập nhật thành công.');
       document.location.href = '/tiep-nhan-le-tan';
   
     } catch (error) {

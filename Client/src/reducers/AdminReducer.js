@@ -1,12 +1,33 @@
 export const getDanhthutrongngay  = (state = {}, action) => {
     switch (action.type) {
       case "GET_DOANH_THU_TRONG_NGAY": {
-        return { ...state, doanhthudetail: action.payload };
+        return { ...state, doanhthungay: action.payload };
       }
       default:
         return state;
     }
   };
+
+  export const getdoanhthutrongthang  = (state = {}, action) => {
+    switch (action.type) {
+      case "GET_DOANH_THU_TRONG_THANG": {
+        return { ...state, doanhthuthang: action.payload };
+      }
+      default:
+        return state;
+    }
+  };
+
+  export const getdoanhthutrongnam  = (state = {}, action) => {
+    switch (action.type) {
+      case "GET_DOANH_THU_TRONG_NAM": {
+        return { ...state, doanhthunam: action.payload };
+      }
+      default:
+        return state;
+    }
+  };
+
 
   export const getAllnhanvien  = (state = {}, action) => {
     switch (action.type) {

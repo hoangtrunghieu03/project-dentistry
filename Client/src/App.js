@@ -1,25 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
-import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Route, Redirect, useHistory } from 'react-router-dom';
 
 import Header from './components/layout/header/Header';
 import Sidebar from './components/layout/sidebar/Sidebar';
 
-import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import ProductPage from './pages/ProductPage';
-import DetailPage from './pages/DetailPage';
-import CartPage from './pages/CartPage';
-import OrderPage from './pages/OrderPage';
-import SearchPage from './pages/SearchPage';
-import AdminPage from './pages/AdminPage';
+import Forgotpassword from './pages/Forgotpassword';
+import Resetpassword from './pages/resetpassword';
 import ResetScroll from './components/ResetScroll/ResetScroll';
-import MyOrderPage from './pages/MyOrderPage';
-import ChatPage from './pages/ChatPage';
-import PaymentPage from './pages/PaymentPage';
-import OrderSuccessPage from './pages/OrderSuccessPage';
 
 import Thongtinuser from './pages/thong-tin-nguoi-dung';
 import Suanguoidung from './pages/sua-nguoi-dung';
@@ -69,16 +60,31 @@ import Hosonobixoa from './pages/ho-so-no-bị-xoa';
 
 
 function App() {
+
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
 
   const PrivateRoute = ({ component: Component, allowedStatus, ...rest }) => (
     <Route
       {...rest}
       render={(props) => {
-        if (!userInfo) {
+        const currentPath = props.location.pathname;
+      
+        // Check if the current path matches the reset-password pattern
+        const resetPasswordMatch = /^\/reset-password\/([^/]+)\/?$/i.exec(currentPath);
+      
+        // If there is a match, extract the token and render the component
+        if (resetPasswordMatch) {
+          const token = resetPasswordMatch[1];
+          return <Redirect to={`/reset-password/${token}`} />;
+        } else if (!userInfo) {
           return <Redirect to="/login" />;
         }
+  
+        // if (!userInfo) {
+        //   return <Redirect to="/login" />;
+        // }
   
         // Kiểm tra xem userInfo.status có nằm trong danh sách allowedStatus không
         if (allowedStatus.includes(userInfo.status)) {
@@ -121,18 +127,22 @@ function App() {
           <SignupPage />
         </Route>
 
-        <ResetScroll />
+        <Route path="/forgot">
+          <Forgotpassword />
+        </Route>
 
-        {/* <Route path="/" exact>
-          <HomePage />
-        </Route> */}
-        {/* <PrivateRoute path="/" component={HomePage} /> */}
+        <Route path="/reset-password/:token">
+          <Resetpassword />
+        </Route>
+
+        <ResetScroll />
 
         <PrivateRoute
           path="/"
-          component={HomePage}
-          allowedStatus="chu"
+          component={Thongtinuser}
+          allowedStatus="kidn"
         />
+
 
         <PrivateRoute
           path="/thong-tin-nguoi-dung"
@@ -385,32 +395,6 @@ function App() {
           component={Hosonobixoa}
           allowedStatus="admin"
         />
-
-        <PrivateRoute
-          path="/product"
-          component={ProductPage}
-        />
-
-
-        <Route path="/detail/:id">
-          <DetailPage />
-        </Route>
-
-        <PrivateRoute path="/cart" component={CartPage} />
-
-        <PrivateRoute path="/order" component={OrderPage} />
-
-        <PrivateRoute path="/orderSuccess" component={OrderSuccessPage} />
-
-        <PrivateRoute path="/payment" component={PaymentPage} />
-
-        <PrivateRoute path="/MyOrder" component={MyOrderPage} />
-
-        <PrivateRoute path="/search" component={SearchPage} />
-
-        <PrivateRoute path="/chat" component={ChatPage} />
-
-        <PrivateRoute path="/admin" component={AdminPage} />
 
       </Router>
     </div>

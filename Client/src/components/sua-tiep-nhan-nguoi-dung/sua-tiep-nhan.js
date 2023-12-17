@@ -15,6 +15,7 @@ function Suatiepnhan(props) {
   }, [dispatch, appoinId]);
 
   const appointment = useSelector((state) => state.letan.appointment);
+  console.log(appointment)
 
   if (!appointment) {
     return <div>Loading...</div>;
@@ -56,6 +57,17 @@ function Suatiepnhan(props) {
             </div>
 
             <div className="input_date">
+              <span>Email bệnh nhân:</span>
+              <input
+                className="tell"
+                type="email"
+                defaultValue={appointment.email}
+                {...register('email')}
+                required
+              />
+            </div>
+
+            <div className="input_date">
               <span>Chọn giới tính:</span>
               <select 
               className="service" 
@@ -71,7 +83,7 @@ function Suatiepnhan(props) {
             </div>
 
             <div className="input_date"> 
-              <span>Nhập ngày sinh:</span>
+              <span>Ngày sinh:</span>
               <input 
                 type="date"
                 defaultValue={appointment.birthday}

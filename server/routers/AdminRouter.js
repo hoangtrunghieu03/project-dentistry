@@ -1,6 +1,6 @@
 import express from 'express'
 import {danhthumotngay, getallnguoidung, getallnhanvien, getallhoadon, getlichhen, xoamemnguoidung, getnguoidungxoamem, xoanguoidung, getnhanvienxoamem, khoiphucnguoidung,
-    getnguoidungdetail, updatenguoidungdetail, updatehoso, deletememhosobenhan, khoiphucmemhosobenhan, getallhosoxoamem, xoahosobenhan, getallhosonoxoamem, danhthumotthang} from '../controllers/AdminController.js'
+    getnguoidungdetail, updatenguoidungdetail, updatehoso, deletememhosobenhan, khoiphucmemhosobenhan, getallhosoxoamem, xoahosobenhan, getallhosonoxoamem, danhthumotthang, danhthumotnam} from '../controllers/AdminController.js'
 const Admin = express.Router()
 // import {isAuth, isAdmin} from '../untils/until.js'
 
@@ -9,6 +9,7 @@ Admin.post('/lay-lich-hen', getlichhen)
 
 Admin.get('/danh-thu-mot-ngay', danhthumotngay)
 Admin.get('/danh-thu-mot-thang', danhthumotthang)
+Admin.get('/danh-thu-mot-nam', danhthumotnam)
 
 Admin.get('/lay-het-nguoi-dung', getallnguoidung)
 Admin.put('/xoa-mem-nguoi-dung/:user_id', xoamemnguoidung)

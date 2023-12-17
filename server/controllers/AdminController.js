@@ -1,7 +1,6 @@
 import { UserModel } from '../models/UserModel.js';
 import { ScheduleModel } from '../models/scheduleModel.js';
 import { MedicalRecord } from '../models/ChuandoanModel.js';
-import { PaybillModel } from '../models/PaybillModel.js';
 import { LichhenModel } from '../models/LichhenModel.js';
 import { generateToken } from '../untils/until.js';
 import expressAsyncHandler from 'express-async-handler'; 
@@ -51,9 +50,9 @@ export const danhthumotthang = expressAsyncHandler(async (req, res) => {
     const medicalrecords = await MedicalRecord.find({
         date: {
             $regex: new RegExp(`^${formattedDate}`)
-        }
+        },
+        status: 'hoan-tat'
     });
-    
 
     const totalDebt = medicalrecords.reduce((accumulator, record) => {
         return accumulator + record.debt;
@@ -68,13 +67,45 @@ export const danhthumotthang = expressAsyncHandler(async (req, res) => {
     }, 0);
 
     res.status(200).send({
-        month: month,
-        year: year,
+        formattedDate: formattedDate,
         totalPayment: totalPayment,
         totalDebt: totalDebt,
         totalTotalmoney: totalTotalmoney
     });
 });
+
+export const danhthumotnam = expressAsyncHandler(async (req, res) => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const formattedDate = `${year}`;
+    
+    const medicalrecords = await MedicalRecord.find({
+        date: {
+            $regex: new RegExp(`^${formattedDate}`)
+        },
+        status: 'hoan-tat'
+    });
+
+    const totalDebt = medicalrecords.reduce((accumulator, record) => {
+        return accumulator + record.debt;
+    }, 0);
+
+    const totalPayment = medicalrecords.reduce((accumulator, record) => {
+        return accumulator + record.payment;
+    }, 0);
+
+    const totalTotalmoney = medicalrecords.reduce((accumulator, record) => {
+        return accumulator + record.totalmoney;
+    }, 0);
+
+    res.status(200).send({
+        formattedDate: formattedDate,
+        totalPayment: totalPayment,
+        totalDebt: totalDebt,
+        totalTotalmoney: totalTotalmoney
+    });
+});
+
 
 
 export const getallnguoidung = expressAsyncHandler(async (req, res) => {

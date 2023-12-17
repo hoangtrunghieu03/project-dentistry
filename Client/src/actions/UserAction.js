@@ -71,16 +71,25 @@ import { useSelector } from 'react-redux';
         console.log(data)
         localStorage.setItem('userInfo', JSON.stringify(data));
         dispatch({ type: 'USER_SIGNUP_SUCCESS', payload: data });
-        // document.location.href = '/';
+        if(data) {
+          document.location.href = '/login';
+        }
       } catch (error) {
         console.log(error)
       }
   };
 
-  export const SignoutUser = (user) => async (dispatch) => {
+  export const SignoutUser = () => async (dispatch) => {
     localStorage.removeItem('userInfo');
-    dispatch({ type: 'USER_SIGNOUT_SUCCESS', payload: {} });
-    window.location.href = '/login';  // Corrected line
+  
+    dispatch({ type: 'USER_SIGNOUT_SUCCESS', payload: {} })
+      .then(() => {
+        document.location.href = '/login';
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+        // Handle the error if needed
+      });
   };
   
 
@@ -148,4 +157,26 @@ export const getAllhoso = (userId) => async (dispatch) => {
     dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
   }
 }
+
+export const Forgotpassword = (email) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`http://localhost:4000/user/forgot-password`, email);
+    console.log(data);
+    window.alert(`${data.message}`);
+  } catch (error) {
+    dispatch({ type: 'GET_ALL_USER_FAIL', payload: error.message });
+  }
+};
+
+export const resetpassword = (token, newPassword) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`http://localhost:4000/user/reset-password/${token}`, newPassword);
+    console.log(data);
+    window.alert(`${data.message}`);
+    document.location.href = '/login';
+  } catch (error) {
+    dispatch({ type: 'GET_ALL_USER_FAIL', payload: error.message });
+  }
+};
+
 

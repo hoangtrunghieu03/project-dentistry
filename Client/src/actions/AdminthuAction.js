@@ -10,6 +10,26 @@ export const getdoanhthutrongngay = () => async (dispatch) => {
     }
   }
 
+  export const getdoanhthutrongthang = () => async (dispatch) => {
+    try {
+      const {data} = await  axios.get(`http://localhost:4000/admin/danh-thu-mot-thang`)
+      console.log(data)
+      dispatch({type: 'GET_DOANH_THU_TRONG_THANG', payload: data})
+    } catch (error) {
+      dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
+    }
+  }
+
+  export const getdoanhthutrongnam = () => async (dispatch) => {
+    try {
+      const {data} = await  axios.get(`http://localhost:4000/admin/danh-thu-mot-nam`)
+      console.log(data)
+      dispatch({type: 'GET_DOANH_THU_TRONG_NAM', payload: data})
+    } catch (error) {
+      dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
+    }
+  }
+
   export const getAllnhanvien = () => async (dispatch) => {
     try {
       const {data} = await  axios.get(`http://localhost:4000/admin/lay-het-nhan-vien`)

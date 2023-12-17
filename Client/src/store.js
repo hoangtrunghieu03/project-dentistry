@@ -32,6 +32,8 @@ import {
 
 import {
   getDanhthutrongngay,
+  getdoanhthutrongthang,
+  getdoanhthutrongnam,
   getAllnhanvien,
   getAllhoadon,
   getnguoidungdetail,
@@ -103,6 +105,8 @@ const reducer = combineReducers({
   hoadons: getAllhosono,
 
   doanhthu: getDanhthutrongngay,
+  doanhthus: getdoanhthutrongthang,
+  doanhthuss: getdoanhthutrongnam,
   nhanvien: getAllnhanvien,
   quanlyhoadons: getAllhoadon,
   userdetail: getnguoidungdetail,

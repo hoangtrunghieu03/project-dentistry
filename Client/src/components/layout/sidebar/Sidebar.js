@@ -28,7 +28,7 @@ function Sidebar(props) {
       <li className="list">
         <a href="/lich-hen-nguoi-dung">
           <i className="ti-announcement"></i>
-          <span className="link_name">Lịch hẹn</span>
+          <span className="link_name">Ngày khám</span>
         </a>
       </li>
 

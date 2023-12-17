@@ -7,9 +7,19 @@ import bcrypt from 'bcryptjs';
 
 export const tiepnhan = expressAsyncHandler(async (req, res) => {
     const status = req.params.status;
-    // res.json(status)
-    const appointments = await ScheduleModel.find({ status: status });
-    res.status(201).send(appointments)
+
+    try {
+        const currentDate = new Date();
+
+        const appointments = await ScheduleModel.find({
+            status: status,
+            date: { $gt: currentDate.toISOString().split('T')[0] } 
+        }).sort({ date: 1 });
+
+        res.status(201).send(appointments);
+    } catch (error) {
+        res.status(500).send({ message: 'Lỗi server khi lấy danh sách tiếp nhận.', error });
+    }
 });
 
 export const chitiettiepnhan = expressAsyncHandler(async (req, res) => {
@@ -20,7 +30,7 @@ export const chitiettiepnhan = expressAsyncHandler(async (req, res) => {
 });
 
 export const addtiepnhan = expressAsyncHandler(async (req, res) => {
-    const {name, phone, birthday, sex, date, service, note} = req.body;
+    const {name, phone, email, birthday, sex, date, service, note} = req.body;
     const password = 'abc123';
 
     const existingUser = await UserModel.findOne({ phone });
@@ -30,6 +40,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             user_Id: existingUser._id,
             name: existingUser.name,
             phone: existingUser.phone,
+            email: existingUser.email,
             birthday: birthday,
             sex: sex,
             date,
@@ -48,7 +59,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new UserModel({
             name,
-            email: '',
+            email: email,
             password: hashedPassword,
             address: '',
             birthday: birthday,
@@ -64,6 +75,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             user_Id: createUser._id,
             name: createUser.name,
             phone: createUser.phone,
+            email: createUser.email,
             birthday: birthday,
             sex: sex,
             date,
@@ -131,7 +143,7 @@ export const updatelichhen = expressAsyncHandler(async (req, res) => {
 
 export const updatetiepnhan = expressAsyncHandler(async (req, res) => {
     const appoinId = req.params.appoinId;
-    const {name, phone,sex, birthday, date, service, note} = req.body;
+    const {name, phone, email, sex, birthday, date, service, note} = req.body;
 
     try {
         const appoin = await ScheduleModel.findById(appoinId);
@@ -141,6 +153,7 @@ export const updatetiepnhan = expressAsyncHandler(async (req, res) => {
         }
         appoin.name = name
         appoin.phone = phone
+        appoin.email = email
         appoin.sex = sex
         appoin.birthday = birthday
         appoin.date = date

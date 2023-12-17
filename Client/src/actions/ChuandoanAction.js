@@ -52,6 +52,7 @@ export const Receiveback = (appoin_id) => async (dispatch) => {
       const {datas} = await axios.put(`http://localhost:4000/chuan-doan/cap-nhat-ho-so-chuan-doan/${medicalrecord_Id}`, data)
       console.log(datas)
       dispatch({type: 'GET_ALL_HO_SO_CHUAN_DETAIL', payload: data})
+      document.location.href = '';
     } catch (error) {
       dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
     }

@@ -12,6 +12,8 @@ const User = new Schema({
     sex: {type: String},
     status: {type: String},
     soft_delete: {type: Boolean},
+    resetToken: { type: String },
+    resetTokenExpires: { type: Date },
     isAdmin: {type: Boolean}
 },
 {

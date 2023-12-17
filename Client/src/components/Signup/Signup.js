@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch  } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { SignupUser } from "../../actions/UserAction";
 import { useHistory } from "react-router";
@@ -24,8 +24,7 @@ function Signup(props) {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
-    // formState: {  },
+    formState: { errors },
   } = useForm();
   const onSubmit =  (data) => {
     if (password === confirmPassword) { 
@@ -76,15 +75,24 @@ function Signup(props) {
             </div>
 
             <div className="signup__field">
-                <PhoneOutlined />
-                <input
-                    className="signup__input"
-                    type="tel"  // Sử dụng kiểu "tel" cho số điện thoại
-                    {...register("phone")}
-                    required
-                    placeholder="Số điện thoại"
-                />
+              <PhoneOutlined />
+              <input
+                className={`signup__input ${errors.phone ? "error" : ""}`}
+                type="tel"
+                {...register("phone", {
+                  required: "Số điện thoại là bắt buộc",
+                  pattern: {
+                    value: /^(\+?\d{1,4}[\s-]?)?\d{10}$/,
+                    message: "Số điện thoại không đúng định dạng",
+                  },
+                })}
+                required
+                placeholder="Số điện thoại"
+              />
+              {errors.phone && <p className="error-message">{errors.phone.message}</p>}
             </div>
+
+
 
             <div className="signup__field">
               <i className="ti-calendar"></i>
