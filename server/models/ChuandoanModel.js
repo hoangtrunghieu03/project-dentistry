@@ -12,6 +12,8 @@ const Medicalrecord = new Schema({
     service: {type: String},
     note: {type: String},
     diagnostic: {type: String},
+    re_examination: {type: String},
+    completed: {type: String},
     tools: {type: String},
     totalmoney: {type: Number},
     payment: {type: Number},

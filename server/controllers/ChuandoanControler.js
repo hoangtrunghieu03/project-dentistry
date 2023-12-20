@@ -13,6 +13,12 @@ export const chuandoan = expressAsyncHandler(async (req, res) => {
     res.status(201).send(medicalrecord)
 });
 
+export const chuandoanhoantat = expressAsyncHandler(async (req, res) => {
+    // res.json(status)
+    const medicalrecord= await MedicalRecord.find({ status: 'hoan-tat', soft_delete: false });
+    res.status(201).send(medicalrecord)
+});
+
 export const chuandoandetail = expressAsyncHandler(async (req, res) => {
     const medicalrecord_Id = req.params.medicalrecord_Id;
     const medicalrecord = await MedicalRecord.findById(medicalrecord_Id);

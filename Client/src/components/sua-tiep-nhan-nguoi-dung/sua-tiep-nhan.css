@@ -10,8 +10,13 @@
     padding: 8px 5px;
     border-radius: 7px;
 }
-.from_datlich {
-    margin: 40px 0 0 70px;
+.datlich .from_datlich {
+    width: 500px;
+    margin: 10px 0 0 70px;
+    background-color: fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .from_datlich .input_date span {
@@ -33,18 +38,16 @@
 }
 
 .from_datlich .datlich__submit {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px ;
     cursor: pointer;
-    border-radius: 3px;
-    color: white;
-    padding: 10px 27px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 160px;
 }
-
-.from_datlich .datlich__submit span {
-    color: #000;
+.from_datlich .datlich__submit:hover {
+    background-color: #2980b9;
+    
 }

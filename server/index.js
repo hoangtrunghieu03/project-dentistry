@@ -16,6 +16,7 @@ import cloudinary from './config/cloudinary/cloudinary.js'
 import Letan from './routers/LetanRouter.js'
 import Chuandoan from './routers/ChuanDoanRouter.js'
 import Thuchien from './routers/ThuchienRouter.js'
+import Thanhtoan from './routers/Thanhtoan.js'
 import Admin from './routers/AdminRouter.js'
 
 dotenv.config();
@@ -36,6 +37,7 @@ app.use('/user', UserRouter)
 app.use('/le-tan', Letan)
 app.use('/chuan-doan', Chuandoan)
 app.use('/thuc-hien', Thuchien)
+app.use('/thanh-toan', Thanhtoan)
 app.use('/admin', Admin)
 
 app.get('/api/config/paypal', (req, res) => {

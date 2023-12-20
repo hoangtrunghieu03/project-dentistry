@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.contents {
+    width: 100%;
+    padding: 10px;
+    height: 700px;
+    flex-direction: column;
+}
+.contents .contact-1{
+    width: 100%;
+    
+}
+.contents .contact-2{
+    width: 100%;
+     
+}
+
+.contact-information {
+    min-height: 150px;
+    margin: 0 0 30px 0;
+    padding: 30px 15px 0 15px;
+    background: rgba(0, 0, 0, .04);
+    display: flex;
+}
+
+.contact-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.contact-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3498db;
+    border-radius: 50px;
+}
+
+.contact-icon i {
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.contact-text {
+    position: relative;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+}
+
+.contact-text h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: black;
+}
+
+ .contact-text p {
+    margin: 0;
+    font-size: 16px;
+    color: #454545;
+}
+
+ .contact-social a {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #3498db;
+}
+
+ .contact-social a:hover {
+    color: #2980b9;
+}
+
+ .contact-form iframe {
+    width: 100%;
+    height: 380px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+ .contact-form input {
+    margin: 10px;
+    padding: 15px;
+    background: none;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+ .contact-form textarea {
+    margin: 10px;
+    height: 150px;
+    padding: 8px 15px;
+    background: none;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .1);
+}
+
+ .help-block ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.btn.custom-btn {
+    padding: 12px 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    transition: .5s;
+}
+
+.btn.custom-btn:hover {
+    color: #3498db;
+    background: transparent;
+}
+.section-header {
+    position: relative;
+    margin-bottom: 45px;
+}
+
+.section-header p {
+    color: black;
+    margin-bottom: 5px;
+    position: relative;
+    font-size: 20px;
+}
+
+.section-header h2 {
+    margin: 0;
+    position: relative;
+    font-size: 45px;
+    font-weight: 700;
+}

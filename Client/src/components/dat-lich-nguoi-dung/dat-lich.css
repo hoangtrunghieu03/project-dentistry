@@ -1,47 +1,73 @@
 .datlich {
-    margin: 20px 0 0 100px;
+    width: 90%;
+    display: flex;
 }
+.booking-content {
+    background-color: #fff;  
+    max-width: 600px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-.datlich h1 {
-    color: #000;
-}
+  .about-text {
+    text-align: justify;
+  }
 
+  hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
 
-.from_datlich {
-    margin: 40px 0 0 70px;
-}
-
-.from_datlich .input_date span {
-    color: #000;
-    font-weight: 550;
-}
-
-.from_datlich input {
-    margin-left: 40px;
-}
-
-.from_datlich .service {
+ .service {
     width: 150px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
-.from_datlich .input_date {
-    margin: 10px 0 20px;
+ .datlich__submit span {
+    color: #fff;
+}
+ .booking-form {
+    max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.from_datlich .datlich__submit {
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  input,
+select,
+textarea {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.booking-form button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 3px;
-    color: white;
-    padding: 10px 27px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.from_datlich .datlich__submit span {
-    color: #000;
-}
+    transition: background-color 0.3s ease;
+    margin-left: 125px;
+  }
+  .booking-form button:hover {
+    background-color: #2980b9;
+  }
+  
+  .booking-form button:active {
+    background-color: #1f618d;
+  }

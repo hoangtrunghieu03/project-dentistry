@@ -13,7 +13,7 @@ export const tiepnhan = expressAsyncHandler(async (req, res) => {
 
         const appointments = await ScheduleModel.find({
             status: status,
-            date: { $gt: currentDate.toISOString().split('T')[0] } 
+            date: { $gte: currentDate.toISOString().split('T')[0] } 
         }).sort({ date: 1 });
 
         res.status(201).send(appointments);
@@ -21,6 +21,7 @@ export const tiepnhan = expressAsyncHandler(async (req, res) => {
         res.status(500).send({ message: 'Lỗi server khi lấy danh sách tiếp nhận.', error });
     }
 });
+
 
 export const chitiettiepnhan = expressAsyncHandler(async (req, res) => {
     const appoinId = req.params.appoinId;
@@ -30,8 +31,15 @@ export const chitiettiepnhan = expressAsyncHandler(async (req, res) => {
 });
 
 export const addtiepnhan = expressAsyncHandler(async (req, res) => {
-    const {name, phone, email, birthday, sex, date, service, note} = req.body;
+    const { name, phone, email, service, birthday, sex, date, note } = req.body;
+
     const password = 'abc123';
+
+    const mangChuoi = service.replace(/[\[\]']+/g, '');
+    const mangKetQua = JSON.parse(mangChuoi);
+    
+    const services = mangKetQua.map(item => ({ type: item }));
+    
 
     const existingUser = await UserModel.findOne({ phone });
 
@@ -44,7 +52,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             birthday: birthday,
             sex: sex,
             date,
-            service,
+            services,
             note,
             status: 'le-tan',
         });
@@ -79,7 +87,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             birthday: birthday,
             sex: sex,
             date,
-            service,
+            services,
             note,
             status: 'le-tan',
         });

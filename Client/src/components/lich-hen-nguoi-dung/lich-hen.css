@@ -133,6 +133,10 @@
     padding: 8px;
 
 }
+.no-appointments {
+    color: #000;
+    margin-left: 40px;
+  }
 
 @media screen and (max-width: 900px ) {
     .staff4 .material-symbols-outlined  {

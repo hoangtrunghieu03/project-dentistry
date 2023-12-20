@@ -37,23 +37,29 @@ function Thuchien(props) {
   };
 
   const onSubmit = (data) => {
+    const payment = parseFloat(data.payment);
+    const debt = parseFloat(data.debt);
+
+    const actualPayment = isNaN(payment) ? 0 : payment;
+    const actualDebt = isNaN(debt) ? 0 : debt;
+
+    const totalMoney = actualPayment + actualDebt;
+
+    data.totalmoney = totalMoney;
+
+    alert(`Bạn muốn thanh toán tổng cộng: ${totalMoney}`);
+
     const shouldUpdate = window.confirm('Bạn có muốn xác nhận thanh toán');
     if (shouldUpdate) {
-      dispatch(updateMedicalRecorddetail(medicalrecord_Id, data, medicalrecord.status));
+        dispatch(updateMedicalRecorddetail(medicalrecord_Id, data, medicalrecord.status));
     }
-  };
+};
 
-  // const handleupdatereceiveup = async (medicalrecord_Id) => {
-  //   const shouldUpdate = window.confirm('Bạn có muốn chuyển hồ sơ không?');
-  //   if (shouldUpdate) {
-  //     dispatch(MedicalRecorddetailup(medicalrecord_Id));
-  //   }
-  // };
   
   return (
     <div className='chuandoan'>
         <div class="staff">
-            <h1>Thực hiện hồ sơ</h1>
+            <h1>Thanh toán hồ sơ</h1>
         </div>
         <form className="from_datlich" onSubmit={handleSubmit(onSubmit)}>
         <div class="content-wrappers">
@@ -62,7 +68,7 @@ function Thuchien(props) {
             <br />
             <strong>Tên bệnh nhân: </strong> {medicalrecord.name}
             <br />
-            <br />
+            <br />  
             <strong>Ngày sinh: </strong> {formatDate(medicalrecord.birthday)}
             <br />
             <br />
@@ -108,17 +114,10 @@ function Thuchien(props) {
             ></input>
             <br />
             <br />
-            <strong>Tổng hóa đơn: </strong>
-            
-            <input 
-              defaultValue={medicalrecord.totalmoney}
-              {...register('totalmoney')}
-              required
-            ></input>
             <br />
             <br />
         <button type="submit" className="datlich__submit" value="Chuấn đoán">
-          <span className="button__text">xác nhận</span>
+          xác nhận
         </button>
 
         {/* {medicalrecord.totalmoney && (

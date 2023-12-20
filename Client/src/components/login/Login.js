@@ -30,7 +30,7 @@ function Login(props) {
       if (userInfo.status === 'admin') {
         history.push("/doanh-thu-trong-trong-ngay");
       } else if (userInfo.status === 'nguoi-dung') {
-        history.push("/thong-tin-nguoi-dung");
+        history.push("/trang-chu");
       } else if (userInfo.status === 'le-tan') {
         history.push("/tiep-nhan-le-tan");
       } else if (userInfo.status === 'chuan-doan') {

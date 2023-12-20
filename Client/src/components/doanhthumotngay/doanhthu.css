@@ -1,0 +1,53 @@
+.doanhthu {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .more4 {
+    background-color: fff;
+  
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .h2ds {
+    margin: 0;
+  }
+  
+  .search_lich4 {
+    margin-top: 20px;
+  }
+  
+  .conditon4 {
+    /* Bạn có thể thêm các quy tắc CSS cho điều kiện tìm kiếm ở đây */
+  }
+  
+  .table_class4 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1%;
+  }
+  
+  .table_class4 th, .table_class4 td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .table_thead4 {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .table_class4 strong {
+    display: block;
+  }
+  
+  /* Thêm kiểu cho các phần tiêu đề */
+  .more4:first-child {
+    margin-top: 0;
+  }
+  
+  /* Hiệu ứng hover cho các hàng */
+  .table_class4 tbody tr:hover {
+    background-color: #f2f2f2;
+  }

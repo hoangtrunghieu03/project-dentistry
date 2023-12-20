@@ -132,7 +132,7 @@ function Suatiepnhan(props) {
               className="datlich__submit"
               value="Đăng nhập"
             >
-              <span className="button__text">Cập nhật</span>
+              Cập nhật
             </button>
           </>
         )}

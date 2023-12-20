@@ -37,7 +37,9 @@ import Chuandoanthuchien from './pages/thuc-hien-chuan-doan';
 import Tiepnhanthuchien from './pages/tiep-nhan-thuc-hien';
 import Thongtinthuchien from './pages/thong-tin-thuc-hien';
 import Dangthuchien from './pages/dang-thuc-hien';
+import Hosotaikhamchitiet from './pages/ho-so-tai-kham-chi-tiet';
 import Thongtinguoithuchien from './pages/thong-tin-nguoi-thuc-hien';
+import Hosotaikham from './pages/ho-so-tai-kham';
 import Suathuchien from './pages/sua-thuc-hien';
 
 import Thanhtoan from './pages/ho-so-thanh-toan';
@@ -55,6 +57,11 @@ import Nguoidungbixoa from './pages/nguoi-dung-bi-xoa';
 import Hosonodetailquanly from './pages/ho-so-chi-tiet-quan-ly';
 import Hoadonbixoa from './pages/hoa-don-bi-xoa';
 import Hosonobixoa from './pages/ho-so-no-bị-xoa';
+import lienhepage from './pages/lienhepage';
+import dichvupage from './pages/dichvupage';
+import implantpage from './pages/implantpage';
+import laycaorangpage from './pages/laycaorangpage';
+import trangchupage from './pages/trangchupage';
 
 
 
@@ -63,57 +70,60 @@ function App() {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+console.log(userInfo)
 
+const PrivateRoute = ({ component: Component, allowedStatus, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      const currentPath = props.location.pathname;
+    
+      // Check if the current path matches the reset-password pattern
+      const resetPasswordMatch = /^\/reset-password\/([^/]+)\/?$/i.exec(currentPath);
+    
+      // If there is a match, extract the token and render the component
+      if (resetPasswordMatch) {
+        const token = resetPasswordMatch[1];
+        return <Redirect to={`/reset-password/${token}`} />;
+      } else if (!userInfo) {
+        return <Redirect to="/login" />;
+      }
 
-  const PrivateRoute = ({ component: Component, allowedStatus, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) => {
-        const currentPath = props.location.pathname;
-      
-        // Check if the current path matches the reset-password pattern
-        const resetPasswordMatch = /^\/reset-password\/([^/]+)\/?$/i.exec(currentPath);
-      
-        // If there is a match, extract the token and render the component
-        if (resetPasswordMatch) {
-          const token = resetPasswordMatch[1];
-          return <Redirect to={`/reset-password/${token}`} />;
-        } else if (!userInfo) {
-          return <Redirect to="/login" />;
-        }
-  
-        // if (!userInfo) {
-        //   return <Redirect to="/login" />;
-        // }
-  
-        // Kiểm tra xem userInfo.status có nằm trong danh sách allowedStatus không
-        if (allowedStatus.includes(userInfo.status)) {
-          return (
-            <div>
-              {userInfo && (
-                <>
-                  <div className="header">
-                    {userInfo && <Header />}
+      // if (!userInfo) {
+      //   return <Redirect to="/login" />;
+      // }
+
+      // Kiểm tra xem userInfo.status có nằm trong danh sách allowedStatus không
+      if (allowedStatus.includes(userInfo.status)) {
+        return (
+          <div>
+            {userInfo && (
+              <>
+                <div className="header">
+                  {userInfo && <Header />}
+                </div>
+                <div className="footer">
+                  <div className="menu">
+                    {userInfo && <Sidebar />}
                   </div>
-                  <div className="footer">
-                    <div className="menu">
-                      {userInfo && <Sidebar />}
-                    </div>
-                    <div className="content">
-                      <Component {...props} />
-                    </div>
+                  <div className="content">
+                    <Component {...props} />
                   </div>
-                </>
-              )}
-            </div>
-          );
-        } else {
-          // Nếu không có quyền, có thể chuyển hướng hoặc hiển thị thông báo lỗi
-          // return <Redirect to="/unauthorized" />;
-        }
-      }}
-    />
-  );
+                </div>
+                <div className="chan">
+                Copyright © 2023 NHA KHOA BỐN RĂNG NHÓM 1  All rights reserved.
+                </div>
+              </>
+            )}
+          </div>
+        );
+      } else {
+        // Nếu không có quyền, có thể chuyển hướng hoặc hiển thị thông báo lỗi
+        // return <Redirect to="/unauthorized" />;
+      }
+    }}
+  />
+);
   
 
   return (
@@ -138,9 +148,9 @@ function App() {
         <ResetScroll />
 
         <PrivateRoute
-          path="/"
-          component={Thongtinuser}
-          allowedStatus="kidn"
+          path="/trang-chu"
+          component={trangchupage}
+          allowedStatus="nguoi-dung"
         />
 
 
@@ -284,6 +294,18 @@ function App() {
         />
 
         <PrivateRoute
+          path="/ho-so-tai-kham-chi-tiet/:medicalrecord_Id"
+          component={Hosotaikhamchitiet}
+          allowedStatus="thuc-hien"
+        />
+
+        <PrivateRoute
+          path="/ho-so-tai-kham"
+          component={Hosotaikham}
+          allowedStatus="thuc-hien"
+        />
+
+        <PrivateRoute
           path="/sua-thuc-hien/:userid"
           component={Suathuchien}
           allowedStatus="thuc-hien"
@@ -395,7 +417,28 @@ function App() {
           component={Hosonobixoa}
           allowedStatus="admin"
         />
-
+         
+         <PrivateRoute
+          path="/lienhepage"
+          component={lienhepage}
+          allowedStatus="nguoi-dung"
+        />
+        <PrivateRoute
+          path="/dichvupage"
+          component={dichvupage}
+          allowedStatus="nguoi-dung"
+        />
+        <PrivateRoute
+          path="/implantpage"
+          component={implantpage}
+          allowedStatus="nguoi-dung"
+        />
+        <PrivateRoute
+          path="/laycaorangpage"
+          component={laycaorangpage}
+          allowedStatus="nguoi-dung"
+        />
+        
       </Router>
     </div>
   );

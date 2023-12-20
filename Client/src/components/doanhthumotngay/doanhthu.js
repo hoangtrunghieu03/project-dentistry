@@ -41,7 +41,7 @@ function Doanhthu(props) {
         return moment(date, 'YYYY/MM').format('MM/YYYY');
       };
   return (
-    <div>
+    <div className="doanhthu">
       <div className="more4">
         <h2 className="h2ds">Doanh thu trong ngày</h2>
       </div>

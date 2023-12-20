@@ -80,7 +80,7 @@ function Sua(props) {
         </div>
 
         <button type="submit" className="sua__submit" value="Đăng nhập">
-          <span className="button__text">Cập nhật</span>
+          Cập nhật
         </button>
         
       </form>

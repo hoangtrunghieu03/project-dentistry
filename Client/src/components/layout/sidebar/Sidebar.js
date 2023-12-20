@@ -1,16 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import './Sidebar.css';
-
+import "./Sidebar.css";
+import { SignoutUser } from "../../../actions/UserAction";
+import { useDispatch } from "react-redux";
+import { LogoutOutlined } from "@ant-design/icons";
 function Sidebar(props) {
   const [isSubMenuVisible, setSubMenuVisible] = useState(false);
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  console.log('jojoj')
-  console.log(userInfo)
-  console.log('kkk')
+  console.log("jojoj");
+  console.log(userInfo);
+  console.log("kkk");
+  const dispatch = useDispatch();
+  const handleSignout = () => {
+    console.log("dang xuat");
+    dispatch(SignoutUser());
+  };
 
   const toggleSubMenu = () => {
     setSubMenuVisible(!isSubMenuVisible);
@@ -19,30 +26,35 @@ function Sidebar(props) {
   const nguoi_dung = (
     <div>
       <li className="list">
-        <a href="/thong-tin-nguoi-dung">
-          <i className="ti-user"></i>
-          <span className="link_name">Thông tin</span>
+        <a href="/trang-chu">
+          <i className="ti-home"></i>
+          <span className="link_name">Trang chủ</span>
         </a>
       </li>
-
+      <li className="list">
+        <a href="/dichvupage">
+          <i className="ti-support"></i>
+          <span className="link_name">Dịch Vụ</span>
+        </a>
+      </li>
+      <li className="list">
+        <a href="/dat-lich-nguoi-dung">
+          <i className="ti-calendar"></i>
+          <span className="link_name">Đặt lịch</span>
+        </a>
+      </li>
+    
       <li className="list">
         <a href="/lich-hen-nguoi-dung">
-          <i className="ti-announcement"></i>
+          <i className="ti-time"></i>
           <span className="link_name">Ngày khám</span>
         </a>
       </li>
 
       <li className="list">
         <a href="/lich-su-kham-benh">
-          <i className="ti-announcement"></i>
+          <i className="ti-notepad"></i>
           <span className="link_name">Lịch sử</span>
-        </a>
-      </li>
-
-      <li className="list">
-        <a href="/dat-lich-nguoi-dung">
-          <i className="ti-calendar"></i>
-          <span className="link_name">Đặt lịch</span>
         </a>
       </li>
 
@@ -50,6 +62,18 @@ function Sidebar(props) {
         <a href="/ho-so-nguoi-dung">
           <i className="ti-files"></i>
           <span className="link_name">Hồ sơ bệnh án</span>
+        </a>
+      </li>
+      <li className="list">
+        <a href="/lienhepage">
+          <i className="ti-map"></i>
+          <span className="link_name">Liên hệ</span>
+        </a>
+      </li>
+      <li className="list">
+        <a href="/thong-tin-nguoi-dung">
+          <i className="ti-user"></i>
+          <span className="link_name">Thông tin</span>
         </a>
       </li>
     </div>
@@ -84,7 +108,7 @@ function Sidebar(props) {
           <span className="link_name">Thông tin</span>
         </a>
       </li>
-    </div> 
+    </div>
   );
 
   const chuan_doan = (
@@ -109,7 +133,7 @@ function Sidebar(props) {
           <span className="link_name">Thông tin</span>
         </a>
       </li>
-    </div> 
+    </div>
   );
 
   const thuc_hien = (
@@ -127,13 +151,21 @@ function Sidebar(props) {
           <span className="link_name">Thực hiện</span>
         </a>
       </li>
+
+      <li className="list">
+        <a href="/ho-so-tai-kham">
+          <i className="ti-folder"></i>
+          <span className="link_name">Hồ sơ tái khám</span>
+        </a>
+      </li>
+      
       <li className="list">
         <a href="/thong-tin-nguoi-thuc-hien">
           <i className="ti-user"></i>
           <span className="link_name">Thông tin</span>
         </a>
       </li>
-    </div> 
+    </div>
   );
 
   const thu_ngan = (
@@ -158,7 +190,7 @@ function Sidebar(props) {
           <span className="link_name">Thông tin</span>
         </a>
       </li>
-    </div> 
+    </div>
   );
 
   const admin = (
@@ -206,11 +238,11 @@ function Sidebar(props) {
           </a>
           <i
             className={`bx bxs-chevron-right arrow ${
-              isSubMenuVisible ? 'active' : ''
+              isSubMenuVisible ? "active" : ""
             }`}
           ></i>
         </div>
-        <ul className={`sub-menu ${isSubMenuVisible ? 'show' : ''}`}>
+        <ul className={`sub-menu ${isSubMenuVisible ? "show" : ""}`}>
           <li>
             <a className="link_name" href="#">
               Thùng rác
@@ -230,36 +262,42 @@ function Sidebar(props) {
           </li>
         </ul>
       </li>
-
-    </div> 
+    </div>
   );
 
-  const loggedOutLinks = (
-    <li className="list">
-    </li>
-  )
-  
+  const loggedOutLinks = <li className="list"></li>;
+
   return (
     <ul className="nav-links">
-      {userInfo ? (
-        userInfo.status === 'nguoi-dung' ? (
-          nguoi_dung
-        ) : userInfo.status === 'le-tan' ? (
-          le_tan
-        ) : userInfo.status === 'chuan-doan' ? (
-          chuan_doan
-        ) :  userInfo.status === 'thuc-hien' ? (
-          thuc_hien
-        ) : userInfo.status === 'thu-ngan' ? (
-          thu_ngan
-        ) : userInfo.status === 'admin' ? (
-          admin
-        ) : (
-          loggedOutLinks
-        )
-      ) : (
-        loggedOutLinks
-      )}
+      {userInfo
+        ? userInfo.status === "nguoi-dung"
+          ? nguoi_dung
+          : userInfo.status === "le-tan"
+          ? le_tan
+          : userInfo.status === "chuan-doan"
+          ? chuan_doan
+          : userInfo.status === "thuc-hien"
+          ? thuc_hien
+          : userInfo.status === "thu-ngan"
+          ? thu_ngan
+          : userInfo.status === "admin"
+          ? admin
+          : loggedOutLinks
+        : loggedOutLinks}
+      <button>
+        
+          <li>
+            <a href="/login" onClick={() => handleSignout()}>
+              {
+                <LogoutOutlined
+                  style={{ fontSize: "14px", padding: "0 5px", color: "white" }}
+                />
+              }{" "}
+              Đăng xuất
+            </a>
+          </li>
+  
+      </button>
     </ul>
   );
 }

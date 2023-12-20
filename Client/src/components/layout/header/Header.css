@@ -23,11 +23,14 @@
     display: flex;
     align-items: stretch;
     margin-left: 20px;
-    margin: 18px;
+    margin: 10px;
+    height: auto;
+    
 }
 
 .header .logo img {
     height: 40px;
+    height: 50px;
 }
 .header .left-menu-trigger {
     position: absolute;

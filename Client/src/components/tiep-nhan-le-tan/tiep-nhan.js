@@ -78,7 +78,7 @@ function Tiepnhan(props) {
         <div className="conditon4"></div>
       </div>
       <div>
-        <table className="table_class4" border="1" style={{ marginTop: '1%' }}>
+        <table className="table_class4" >
           <thead className="table_thead4">
             <tr>
               <th>Mã bệnh nhân</th>

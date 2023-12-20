@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const User = new Schema({
     name:{type: String},
     email: {type: String},
-    password: {type: String, required: true},
+    password: {type: String},
     address: {type:String},
     phone: {type: String},
     birthday: {type: String},
@@ -13,6 +13,7 @@ const User = new Schema({
     status: {type: String},
     soft_delete: {type: Boolean},
     resetToken: { type: String },
+    generatedOTP: {type: String},
     resetTokenExpires: { type: Date },
     isAdmin: {type: Boolean}
 },

@@ -9,35 +9,18 @@ import moment from 'moment';
 
 
 function Thuchien(props) {
-    const dispatch = useDispatch();
-    const {medicalrecord_Id } = useParams();
-    console.log(medicalrecord_Id);
-    const { register, handleSubmit } = useForm(); 
+  const dispatch = useDispatch();
+  const { medicalrecord_Id } = useParams();
+  const { register, handleSubmit } = useForm();
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  let link = '';
-
-  if (userInfo.status === 'chuan-doan') {
-    link = '/chuan-doan-thuc-hien';
-  } else if (userInfo.status === 'le-tan') {
-    link = '/sua-le-tan/';
-  } else {
-    link = '/default-link';
-  }
-  
   useEffect(() => {
     dispatch(getMedicalRecorddetail(medicalrecord_Id));
   }, [dispatch, medicalrecord_Id]);
 
-  console.log(userInfo.status);
-  console.log(link);
-  
-
   const medicalrecord = useSelector((state) => state.dangthuchien.medicalrecordetail);
-
-  console.log(medicalrecord)
 
   if (!medicalrecord) {
     return <div>Loading...</div>;
@@ -48,8 +31,17 @@ function Thuchien(props) {
   };
 
   const onSubmit = (data) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(data.re_examination);
+
+    if (selectedDate <= currentDate) {
+      alert('Ngày tái khám không phù hợp');
+      return;
+    }
+
     const shouldUpdate = window.confirm('Bạn có muốn cập nhật hồ sơ không?');
     if (shouldUpdate) {
+      console.log(data)
       dispatch(updateMedicalRecorddetail(medicalrecord_Id, data));
     }
   };
@@ -96,6 +88,12 @@ function Thuchien(props) {
             {medicalrecord.diagnostic}
             <br />
             <br />
+            <strong>Ngày tái khám: </strong>
+            <input 
+            defaultValue={medicalrecord.re_examination}
+            type="date" {...register('re_examination')} />
+            <br />
+            <br />
             <strong>Thông tin thực hiện: </strong>
             <br />
             <textarea 
@@ -103,12 +101,12 @@ function Thuchien(props) {
               {...register('tools')}
               required
             ></textarea>
-        <button type="submit" className="datlich__submit" value="Chuấn đoán">
-          <span className="button__text">Thực hiện</span>
+        <button type="submit" className="datlich__submits" value="Chuấn đoán">
+          Thực hiện
         </button>
 
         {medicalrecord.tools && (
-          <span style={{marginLeft: '80px'}} className="button__text"onClick={() => handleupdatereceiveup(medicalrecord._id)}>Chuyển phòng</span>
+          <button style={{marginLeft: '80px'}} className="datlich__submits"onClick={() => handleupdatereceiveup(medicalrecord._id)}>Chuyển phòng</button>
         )}
         </div>
         </form>

@@ -38,7 +38,7 @@
 
 .content .add-button4 {
     padding: 10px 15px; 
-    background-color: #6171dc; 
+    background-color: #3498db; 
     color: #fff; 
     border: none; 
     border-radius: 5px; 
@@ -94,41 +94,51 @@
     z-index: 1;
     color: #CCCCCC;
 }
-.content .table_class4 td {
-    color: #000;
-    text-align: left;
-}
-
-.content .table_lich4 {
+.table_class4 {
     width: 100%;
-    margin-top: -35px;
-    
-   
-} 
-.content .table_class4{
-   width: 100%;
-   border-collapse: collapse;
-   margin-top: 5%;
-
-}
-.content .table_thead4{
-    border: 1px solid  #ccc9c9;
-    
-
-}
-.content td {
+    border-collapse: collapse;
+    margin-top: 1%;
+  }
+  
+  .table_class4 th, .table_class4 td {
     border: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
+  }
+  
+  .table_class4 th {
+    background-color: #f2f2f2;
+  }
+  
+  .table_thead4 {
+    font-weight: bold;
+  }
+  
+  .table_class4 .frame td {
+    border: 1px solid #ddd;
     padding: 8px;
-   
-}
-
-.content th, .table_class4 td {
-    background-color: white;
-    border:none;
-    padding: 8px;
-
-}
+    
+  }
+  
+  .table_class4 .frame td:last-child {
+    text-align: center;
+  }
+  
+  /* Optional: Add hover effect to rows */
+  .table_class4 tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Optional: Style icons */
+  .table_class4 i {
+    font-size: 18px;
+  }
+  
+  /* Optional: Adjust margin for the "Không có lịch hẹn" message */
+  .table_class4 span {
+    color: #000;
+    margin-left: 10px;
+  }
 
 @media screen and (max-width: 900px ) {
     .staff4 .material-symbols-outlined  {

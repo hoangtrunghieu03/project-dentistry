@@ -6,6 +6,7 @@ import { getAppointments, Deletelichhen, Updatelichhen } from '../../actions/Let
 import moment from 'moment';
 
 function Lichen(props) {
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +34,13 @@ function Lichen(props) {
     }
   };
 
+  const isSameDate = (date) => {
+    const currentDate = new Date();
+    const appoinDate = new Date(date);
+    return currentDate.toDateString() === appoinDate.toDateString();
+  };
+  
+
   return (
     <div>
       <div className="more4">
@@ -53,37 +61,38 @@ function Lichen(props) {
               <th>Ghi chú</th>
               <th></th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
-            {appoins && appoins.length > 0 ? (
-              appoins.map((appoin) => (
-                <tr className="frame" key={appoin._id}>
-                  <td>{appoin.user_Id}</td>
-                  <td>{appoin.name}</td>
-                  <td>{appoin.phone}</td>
-                  <td>{appoin.service}</td>
-                  <td>{formatDate(appoin.date)}</td>
-                  <td>{appoin.note}</td>
-                  <td
-                    onClick={() => handleDeleteappoin(appoin._id)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <i className="ti-trash"></i>
-                  </td>
+          {appoins && appoins.length > 0 ? (
+            appoins.map((appoin) => (
+              <tr className="frame" key={appoin._id}>
+                <td>{appoin.user_Id}</td>
+                <td>{appoin.name}</td>
+                <td>{appoin.phone}</td>
+                <td>{appoin.service}</td>
+                <td>{formatDate(appoin.date)}</td>
+                <td>{appoin.note}</td>
+                <td
+                  onClick={() => handleDeleteappoin(appoin._id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <i className="ti-trash"></i>
+                </td>
+                {isSameDate(appoin.date) && (
                   <td
                     onClick={() => handleupdatereceive(appoin._id)}
                     style={{ cursor: 'pointer' }}
                   >
                     <i className="ti-back-right"></i>
                   </td>
-                </tr>
-              ))
-            ) : (
-              <span style={{ color: '#000', marginLeft: '40px' }}>Không có lịch hẹn</span>
-            )}
-          </tbody>
+                )}
+              </tr>
+            ))
+          ) : (
+            <span style={{ color: '#000', marginLeft: '40px' }}>Không có lịch hẹn</span>
+          )}
+        </tbody>
         </table>
       </div>
     </div>

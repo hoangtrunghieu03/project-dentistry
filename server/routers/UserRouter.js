@@ -1,5 +1,5 @@
 import express from 'express'
-import {getAllUser, registerUser, login, DeleteUser, updateUser, schedules, appointment, deleteappoin, allhoadon, hoadondetail, historyappointment, forgotpassword, resetpassword} from '../controllers/UserController.js'
+import {verifyotp, getAllUser, registerUser, login, DeleteUser, updateUser, schedules, appointment, deleteappoin, allhoadon, hoadondetail, historyappointment, forgotpassword, resetpassword, sendotp} from '../controllers/UserController.js'
 const UserRouter = express.Router()
 import {isAuth, isAdmin} from '../untils/until.js'
 
@@ -21,6 +21,9 @@ UserRouter.get('/hoa-don-chi-tiet/:medicalrecord_Id', hoadondetail )
 
 UserRouter.post('/forgot-password', forgotpassword)
 UserRouter.post('/reset-password/:token', resetpassword)
+
+UserRouter.post('/send-otp', sendotp)
+UserRouter.post('/verify-otp', verifyotp)
 
 
 export default UserRouter

@@ -38,7 +38,7 @@
 
 .content .add-button4 {
     padding: 10px 15px; 
-    background-color: #6171dc; 
+    background-color: #3498db; 
     color: #fff; 
     border: none; 
     border-radius: 5px; 
@@ -115,6 +115,9 @@
     border: 1px solid  #ccc9c9;
     
 
+}
+.content .table_thead4 th {
+    color: #000;
 }
 .content td {
     border: 1px solid #ddd;

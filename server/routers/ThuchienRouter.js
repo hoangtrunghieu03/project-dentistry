@@ -1,5 +1,5 @@
 import express from 'express'
-import {tiepnhan, tiepnhanthuchien, tiepnhanthuchiendetail, dangthuchien, chuyentiepnhan, trahoso} from '../controllers/ThuchienControler.js'
+import {tiepnhan, tiepnhanthuchien, tiepnhanthuchiendetail, dangthuchien, chuyentiepnhan, trahoso, hosotaikham} from '../controllers/ThuchienControler.js'
 const Thuchien = express.Router()
 // import {isAuth, isAdmin} from '../untils/until.js'
 
@@ -9,5 +9,7 @@ Thuchien.put('/tra-ho-so/:medicalrecord_Id', trahoso)
 Thuchien.get('/tiep-nhan-thuc-hien-detail/:medicalrecord_Id', tiepnhanthuchiendetail)
 Thuchien.put('/dang-tuc-hien/:medicalrecord_Id', dangthuchien)
 Thuchien.put('/chuyen-tiep-nhan/:medicalrecord_Id', chuyentiepnhan)
+Thuchien.post('/ho-so-tai-kham', hosotaikham)
+
 
 export default Thuchien

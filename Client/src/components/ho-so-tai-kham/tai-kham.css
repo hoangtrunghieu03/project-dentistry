@@ -1,0 +1,17 @@
+.seach_phone {
+    margin-top: 10px;
+    width: 20%;
+}
+
+.seachphone {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    border-radius: 10px;
+}
+
+.seachphone:hover {
+    padding: 10px 20px;
+    background-color: #2980b9;
+    border-radius: 10px;
+}

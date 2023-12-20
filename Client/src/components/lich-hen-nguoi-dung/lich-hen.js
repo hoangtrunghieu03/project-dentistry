@@ -41,7 +41,7 @@ function LichHen(props) {
             <tr>
               <th>Dịch vụ</th>
               <th>Ngày khám</th>
-              <th>Khi chú</th>
+              <th>Ghi chú</th>
               <th></th>
             </tr>
           </thead>
@@ -56,7 +56,7 @@ function LichHen(props) {
                 </tr>
               ))
             ) : (
-              <span style={{ color: '#000', marginLeft: '40px' }}>Không có lịch hẹn</span>
+              <span className="no-appointments">Không có lịch hẹn</span>
             )}
           </tbody>
         </table>

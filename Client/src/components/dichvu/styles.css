@@ -1,0 +1,92 @@
+
+
+.content h1{
+    font-size: 30px;
+}
+
+.lich_hen {
+    border-radius: 7px;
+    background-color: #fff;
+    margin-top: 2%;
+    height: 700px;
+}
+.lich_hen .secmenu ul{
+  list-style-type: none;
+  border-bottom: #b7b5b5 solid 1px ;
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  }
+.lich_hen .secmenu ul li{
+color: #f1f1f1;
+  display: inline-block;
+  padding: 0 15px;
+  
+}
+.lich_hen .secmenu ul li a {
+    text-decoration: none;
+    color: #101010;
+    
+}
+.lich_hen .secmenu ul li a:hover{
+    color: #2980b9;
+    
+}
+.content-1 {
+    padding: 20px;
+    width: 100%;
+    height: 300px;
+}
+.content-1 img {
+    margin: auto;
+    display: block;
+    width: 300px;
+    height: 200px;   
+}
+.content-1 p {
+margin-bottom: 10px;
+font-size: 15px;
+}
+.content-2{
+    padding: 20px;
+    width: 100%;
+    height: 310px;
+    
+}
+.content-2 .content-2-1{
+    width: 70%;
+    height: 100%;
+    float: left;
+}
+.content-2 .content-2-1 p{
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
+}
+.content-2 img{
+    float: right;
+    width: 30%;
+    padding: 5px;
+}
+.content-3{
+    margin: 40px;
+    width: 100%;
+    height: 320px;
+    
+    display: flex;
+}
+.content-3 .content-3-1{
+    margin: 50px;
+    float: right;
+    width: 55%;
+    height: 320px;
+    
+}
+.content-3 .ctn-3{
+    margin-top: 50px;
+}
+
+
+
+
+

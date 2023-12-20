@@ -5,8 +5,9 @@ import { MedicalRecord } from '../models/ChuandoanModel.js';
 import expressAsyncHandler from 'express-async-handler';
 import schedule  from 'node-schedule';
 import jwt from 'jsonwebtoken'
-import { generateResetToken, sendResetEmail, sendEmailSchedule } from '../untils/authUtils.js';
+import { generateResetToken, sendResetEmail, sendEmailSchedule, sendEmailRegesteruser } from '../untils/authUtils.js';
 import bcrypt from 'bcryptjs';
+import otpGenerator from 'otp-generator';
 
 // import moment from 'moment-timezone';
 
@@ -16,8 +17,108 @@ export const getAllUser = (req, res) => {
         .catch(err => console.log(err));
 }
 
+export const sendotp = expressAsyncHandler(async (req, res) => {
+        const email = req.body.email;
+
+        const existingUser = await UserModel.findOne({ email });
+
+        if(!existingUser) {
+            const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
+
+            const user = new UserModel({
+                email: email,
+                generatedOTP: generatedOTP,
+                resetTokenExpires: new Date(Date.now() + 300000)
+            });
+
+            await user.save()
+
+            const subject = 'Mã OTP';
+            const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`
+
+            await sendEmailSchedule(email, subject, text);
+    
+            res.status(200).json({ message: 'OTP sent successfully' });
+        } else if (existingUser.password == null)  {
+            const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
+        
+            existingUser.generatedOTP = generatedOTP;
+            existingUser.resetTokenExpires = new Date(Date.now() + 300000);
+        
+            await existingUser.save();
+        
+            const subject = 'Mã OTP';
+            const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`
+        
+            await sendEmailSchedule(email, subject, text);
+        
+            res.status(200).json({ message: 'OTP sent successfully' });
+        } else {
+            res.status(500).json({ error: 'Email tồn tại' });
+        }
+})
+
+export const verifyotp = expressAsyncHandler(async (req, res) => {
+    const { name, password, generatedOTP, phone, birthday, sex } = req.body;
+  
+    try {
+        const existingUser = await UserModel.findOne({ phone });
+
+        if (existingUser) {
+            res.status(400).send({ message: 'Trùng số điện thoại' });
+            return;
+        }
+
+        const user = await UserModel.findOne({
+        generatedOTP: generatedOTP,
+        resetTokenExpires: { $gt: Date.now() },
+        });
+
+        if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.name = name
+        user.phone = phone
+        user.password = hashedPassword
+        user.birthday = birthday
+        user.sex = sex
+        user.address = ''
+        user.status = 'nguoi-dung'
+        user.soft_delete = false
+        user.isAdmin = false
+        user.generatedOTP = null;
+        user.resetTokenExpires = null;
+
+        const createUser = await user.save();
+
+        res.status(201).send({
+            _id: createUser._id,
+            name: createUser.name,
+            email: createUser.email,
+            birthday: createUser.birthday,
+            sex: createUser.sex,
+            password: createUser.password,
+            address: createUser.address,
+            phone: createUser.phone,
+            status: createUser.status,
+            soft_delete: createUser.soft_delete,
+            token: generateToken(createUser),
+        });
+    } catch (error) {
+        console.error(error);
+        if (error.name === 'OTPExpiredError') {
+        res.status(400).json({ message: 'OTP expired' });
+        } else {
+        res.status(500).json({ message: 'Internal Server Error' });
+        }
+    }
+});
+
 export const registerUser = expressAsyncHandler(async (req, res) => {
-    const { name, email, password, phone, birthday, sex } = req.body;
+    const { name, password, phone, birthday, sex } = req.body;
 
     const existingUser = await UserModel.findOne({ phone });
 
@@ -30,7 +131,6 @@ export const registerUser = expressAsyncHandler(async (req, res) => {
 
     const user = new UserModel({
         name,
-        email,
         password: hashedPassword,
         address: '',
         phone,
@@ -180,7 +280,7 @@ export const appointment = expressAsyncHandler(async (req, res) => {
 
         const appointments = await ScheduleModel.find({
             status: 'nguoi-dung',
-            date: { $gt: currentDate.toISOString().split('T')[0] } 
+            date: { $gte: currentDate.toISOString().split('T')[0] }  
         }).sort({ date: 1 });
 
         res.status(201).send(appointments);
@@ -244,7 +344,7 @@ export const forgotpassword = expressAsyncHandler(async (req, res) => {
   
       const resetToken = generateResetToken(user.email);
       user.resetToken = resetToken; 
-      user.resetTokenExpires = new Date(Date.now() + 3600000);
+      user.resetTokenExpires = new Date(Date.now() + 600000);
       await user.save();
   
       sendResetEmail(email, resetToken);
@@ -387,3 +487,5 @@ const sendReminderOnTheDay = async () => {
 schedule.scheduleJob('0 0 0 * * *', sendReminderBefore3Days);
 schedule.scheduleJob('0 0 0 * * *', sendReminderBefore1Day);
 schedule.scheduleJob('0 0 0 * * *', sendReminderOnTheDay);  
+
+

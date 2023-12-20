@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
           if (data.status === 'admin') {
             document.location.href = "/doanh-thu-trong-trong-ngay";
           } else if (data.status === 'nguoi-dung') {
-            document.location.href = "/thong-tin-nguoi-dung";
+            document.location.href = "/trang-chu";
           } else if (data.status === 'le-tan') {
             document.location.href ="/tiep-nhan-le-tan";
           } else if (data.status === 'chuan-doan') {

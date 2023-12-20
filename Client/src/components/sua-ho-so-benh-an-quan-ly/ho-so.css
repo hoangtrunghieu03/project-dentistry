@@ -1,0 +1,32 @@
+.suahosobenhan{
+    
+}
+.suahosobenhan .chuandoans{
+    width: 100%;
+    height: 1000px;
+}
+ .chuandoan .from_datlichs{
+    
+     
+}
+.from_datlichs .content-wrapperss{
+    margin: 20px 300px;
+    padding: 20px 70px;
+    width: 550px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+.content-wrapperss .datlich__submits{
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px ;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-left: 120px;
+    width: 120px;
+    height: 50px;
+} 
+.content-wrapperss .datlich__submits:hover{
+    background-color: #2980b9;
+}

@@ -60,3 +60,17 @@ export const getMedicalrecord = (status) => async (dispatch) => {
       dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
     }
   }
+
+  export const seachphone = (phone) => async (dispatch) => {
+    try {
+      const {data} = await  axios.post('http://localhost:4000/thuc-hien/ho-so-tai-kham', phone)
+      console.log(data)
+      if ( data.message !== undefined ) {
+        window.alert(`${data.message}`);
+      } else {
+        dispatch({type: 'GET_ALL_HOSO_TIEPNHAN', payload: data})
+      }
+    } catch (error) {
+      dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
+    }
+  }

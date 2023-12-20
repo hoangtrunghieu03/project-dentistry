@@ -65,7 +65,7 @@
 
  .nav-links li.list:hover .link_name,
  .nav-links li.list:hover i {
-  color: orange;
+  color: #3498db;
 }
  .nav-links li a .link_name {
   font-size: 18px;
@@ -172,6 +172,33 @@
     left: 78px;
     width: calc(100% - 78px);
   } */
+}
+.nav-links button  {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  background-color: #3498db;
+  color: #fff;
+  border: 2px solid #3498db;
+  margin-top: 50px;
+  justify-content: space-around;
+}
+.nav-links button li a {
+  color:#fff ;
+}
+.nav-links button:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+}
+
+.nav-links button:active {
+  background-color: #1f618d;
+  border-color: #1f618d;
 }
 
 @media screen and (max-width: 768px) {

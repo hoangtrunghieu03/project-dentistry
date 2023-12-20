@@ -57,3 +57,51 @@ export const sendEmailSchedule  = async (to, subject, text) => {
       console.error('Error sending email: ', error);
   }
 };
+
+export const sendEmailMedicalRecord  = async (to, subject, text) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'hoanghieu35467@gmail.com',
+      pass: 'zuco tgxn fzdi ipuc',
+    },
+  });
+
+  const mailOptions = {
+      from: 'hoanghieu35467@gmail.com', 
+      to: to,
+      subject: subject,
+      text: text
+  };
+
+  try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent: ', info.response);
+  } catch (error) {
+      console.error('Error sending email: ', error);
+  }
+};
+
+export const sendEmailRegesteruser  = async (to, subject, text) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'hoanghieu35467@gmail.com',
+      pass: 'zuco tgxn fzdi ipuc',
+    },
+  });
+
+  const mailOptions = {
+      from: 'hoanghieu35467@gmail.com', 
+      to: to,
+      subject: subject,
+      text: text
+  };
+
+  try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent: ', info.response);
+  } catch (error) {
+      console.error('Error sending email: ', error);
+  }
+};
