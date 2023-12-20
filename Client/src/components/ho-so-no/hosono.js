@@ -54,6 +54,8 @@ function Hosonos(props) {
             <th>Tên người khám</th>
             <th>Ngày Khám</th>
             <th>Dịch vụ</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

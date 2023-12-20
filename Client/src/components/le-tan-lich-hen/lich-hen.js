@@ -84,7 +84,7 @@ function Lichen(props) {
                     onClick={() => handleupdatereceive(appoin._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-right"></i>
+                    <i className="ti-export"></i>
                   </td>
                 )}
               </tr>

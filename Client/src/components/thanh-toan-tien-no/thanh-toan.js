@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './thuc-hien.css';
+import './thanh-toan.css';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getMedicalRecorddetail, updateMedicalRecorddetail } from '../../actions/ThanhtoanAction';
@@ -37,23 +37,39 @@ function Thuchien(props) {
   };
 
   const onSubmit = (data) => {
-    const payment = parseFloat(data.payment);
-    const debt = parseFloat(data.debt);
-
-    const actualPayment = isNaN(payment) ? 0 : payment;
-    const actualDebt = isNaN(debt) ? 0 : debt;
-
-    const totalMoney = actualPayment + actualDebt;
-
-    data.totalmoney = totalMoney;
-
-    alert(`Bạn muốn thanh toán tổng cộng: ${totalMoney}`);
-
-    const shouldUpdate = window.confirm('Bạn có muốn xác nhận thanh toán');
-    if (shouldUpdate) {
+    const payments = parseFloat(data.payment) || 0;
+    const debts = parseFloat(data.debt) || 0;
+  
+    const debtreal = parseFloat(medicalrecord.debt) || 0;
+  
+    const actualPayment = isNaN(payments) ? 0 : payments;
+    const actualDebt = isNaN(debts) ? 0 : debts;
+  
+    let debt = 0;
+    let payment = 0;
+  
+    if (debtreal >= actualDebt) {
+      debt = debtreal - actualDebt;
+      payment = actualPayment + debt;
+      
+      const totalMoney = payment + actualDebt;
+  
+      data.totalmoney = totalMoney;
+      data.payment = payment;
+      data.debt = actualDebt;
+  
+      alert(`Số tiền bạn còn nợ là: ${actualDebt} VND. Tổng số tiền đã thanh toán là: ${payment} VND. Tổng cộng: ${totalMoney} VND`);
+    
+      const shouldUpdate = window.confirm('Bạn có muốn xác nhận thanh toán');
+      if (shouldUpdate) {
         dispatch(updateMedicalRecorddetail(medicalrecord_Id, data, medicalrecord.status));
+      }
+    } else {
+      alert(`Số tiền nợ lớn hơn số tiền nợ cũ!`);
     }
-};
+  };
+      
+
 
   
   return (
@@ -97,10 +113,11 @@ function Thuchien(props) {
             <br />
             <br />
             <strong>Số Tiền trả: </strong>
-            <input 
-                defaultValue={medicalrecord.payment}
-              {...register('payment')}
-              required
+            <input
+                value={medicalrecord.payment}
+                {...register('payment')}
+                required
+                readOnly
             ></input>
             <br />
             <br />
@@ -110,6 +127,16 @@ function Thuchien(props) {
               {...register('debt')}
               required
             ></input>
+            <br />
+            <br />
+            <strong>Tổng tiền cần trả: </strong>
+            <input 
+              defaultValue={medicalrecord.totalmoney}
+              required
+              disabled
+            ></input>
+            <br />
+            <br />
             <br />
             <br />
         <button type="submit" className="datlich__submit" value="Chuấn đoán">

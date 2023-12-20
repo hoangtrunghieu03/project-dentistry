@@ -12,6 +12,8 @@ import Forgotpassword from './pages/Forgotpassword';
 import Resetpassword from './pages/resetpassword';
 import ResetScroll from './components/ResetScroll/ResetScroll';
 
+import Sendotp from './pages/sendotp';
+
 import Thongtinuser from './pages/thong-tin-nguoi-dung';
 import Suanguoidung from './pages/sua-nguoi-dung';
 import Datlichnguoidung from './pages/dat-lich-nguoi-dung';
@@ -135,6 +137,10 @@ const PrivateRoute = ({ component: Component, allowedStatus, ...rest }) => (
 
         <Route path="/register">
           <SignupPage />
+        </Route>
+
+        <Route path="/send-otp">
+          <Sendotp />
         </Route>
 
         <Route path="/forgot">

@@ -35,35 +35,36 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
 
     const password = 'abc123';
 
-    const mangChuoi = service.replace(/[\[\]']+/g, '');
-    const mangKetQua = JSON.parse(mangChuoi);
-    
-    const services = mangKetQua.map(item => ({ type: item }));
-    
+    const existingUserByPhone = await UserModel.findOne({ phone });
 
-    const existingUser = await UserModel.findOne({ phone });
-
-    if(existingUser) {
+    if(existingUserByPhone) {
         const schedule = await new ScheduleModel({
-            user_Id: existingUser._id,
-            name: existingUser.name,
-            phone: existingUser.phone,
-            email: existingUser.email,
+            user_Id: existingUserByPhone._id,
+            name: existingUserByPhone.name,
+            phone: existingUserByPhone.phone,
+            email: existingUserByPhone.email,
             birthday: birthday,
             sex: sex,
             date,
-            services,
+            service,
             note,
             status: 'le-tan',
+            soft_delete: false
         });
 
-        existingUser.birthday = birthday
-        existingUser.sex = sex
-        existingUser.save()
+        existingUserByPhone.birthday = birthday
+        existingUserByPhone.sex = sex
+        existingUserByPhone.save()
 
         const aschedule = await schedule.save();
-        res.status(201).send(aschedule)
+        res.status(200).json({ message: 'Tiếp nhận thành công' });
     } else {
+        const existingUserByEmail = await UserModel.findOne({ email });
+
+        if(existingUserByEmail) {
+            res.status(200).json({ error: 'Email tồn tại' });
+            return;
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new UserModel({
             name,
@@ -75,6 +76,7 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             phone,
             status: 'nguoi-dung',
             isAdmin: false,
+            soft_delete: false
         });
 
         const createUser = await user.save();
@@ -87,15 +89,16 @@ export const addtiepnhan = expressAsyncHandler(async (req, res) => {
             birthday: birthday,
             sex: sex,
             date,
-            services,
+            service,
             note,
             status: 'le-tan',
         });
 
         const aschedule = await schedule.save();
-        res.status(201).send(aschedule)
+        res.status(200).json({ message: 'Tiếp nhận thành công' });
     }
 });
+
 
 export const deletetiepnhan = expressAsyncHandler(async (req, res) => {
     const appoinId = req.params.appoinId;

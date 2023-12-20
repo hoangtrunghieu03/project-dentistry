@@ -87,14 +87,14 @@ function Tiepnhan(props) {
                     onClick={() => handleupdatereceiveback(medical._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-right"></i>
+                    <i className="ti-export"></i>
                   </td>
 
                   <td
                     onClick={() => handleupdatereceiveup(medical._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-left"></i>
+                    <i className="ti-import"></i>
                   </td>
                 </tr>
               ))

@@ -125,7 +125,7 @@ function Tiepnhan(props) {
                     onClick={() => handleupdatereceive(appoin._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-right"></i>
+                    <i className="ti-export"></i>
                   </td>
                   )}
 
@@ -134,7 +134,7 @@ function Tiepnhan(props) {
                     onClick={() => handleupdatereceiveback(appoin._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-right"></i>
+                    <i className="ti-export"></i>
                   </td>
                   )}
 
@@ -143,7 +143,7 @@ function Tiepnhan(props) {
                     onClick={() => handleupdatereceiveup(appoin._id)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <i className="ti-back-left"></i>
+                    <i className="ti-import"></i>
                   </td>
                   )}
                 </tr>

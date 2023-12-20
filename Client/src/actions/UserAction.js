@@ -67,7 +67,7 @@ import { useSelector } from 'react-redux';
   
   export const SignupUser = (user) => async (dispatch) => {
       try {
-        const {data} = await axios.post('http://localhost:4000/user/register', user)
+        const {data} = await axios.post('http://localhost:4000/user/verify-otp', user)
         console.log(data)
         localStorage.setItem('userInfo', JSON.stringify(data));
         dispatch({ type: 'USER_SIGNUP_SUCCESS', payload: data });
@@ -127,6 +127,16 @@ export const getAppointments = (user_Id) => async (dispatch) => {
   }
 }
 
+export const getAppoinlichsu = (user_Id) => async (dispatch) => {
+  try {
+    const {data} = await  axios.get(`http://localhost:4000/user/lich-su/${user_Id}`)
+    console.log(data)
+    dispatch({type: 'GET_ALL_APPOINTMENT_USER', payload: data})
+  } catch (error) {
+    dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})
+  }
+}
+
 export const getHistoryappointment = (user_Id) => async (dispatch) => {
   try {
     const {data} = await  axios.get(`http://localhost:4000/user/lich-su/${user_Id}`)
@@ -179,4 +189,17 @@ export const resetpassword = (token, newPassword) => async (dispatch) => {
   }
 };
 
+export const sendotp = (email) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(`http://localhost:4000/user/send-otp`, email);
 
+    if (data.message) {
+      window.alert(`${data.message}`);
+      document.location.href = '/register';
+    } else {
+      window.alert(`${data.error}`);
+    }
+  } catch (error) {
+    dispatch({ type: 'GET_ALL_USER_FAIL', payload: error.message });
+  }
+};

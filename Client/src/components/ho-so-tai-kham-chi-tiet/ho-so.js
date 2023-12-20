@@ -42,7 +42,6 @@ function Thuchien(props) {
       return;
     }
     
-  
     const shouldUpdate = window.confirm('Bạn có muốn cập nhật hồ sơ không?');
     if (shouldUpdate) {
       dispatch(updateMedicalRecorddetail(medicalrecord_Id, data));

@@ -14,10 +14,10 @@ function Addtiepnhan(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    // const shouldUpdate = window.confirm('Bạn có tiếp nhận hồ sơ không?');
-    // if (shouldUpdate) {
-    //   dispatch(themnguoikham(data));
-    // }
+    const shouldUpdate = window.confirm('Bạn có tiếp nhận hồ sơ không?');
+    if (shouldUpdate) {
+      dispatch(themnguoikham(data));
+    }
   }
 
   const currentDate = new Date().toISOString().slice(0, 10);
@@ -90,57 +90,20 @@ function Addtiepnhan(props) {
       </div>
 
 
-      {/* <div className="input_date">
+      <div className="input_date">
         <span>Chọn dịch vụ khám bệnh:</span>
-        <select 
-          className="service" 
-          id="services" 
-          {...register('services', { required: true })}
-          multiple // Thêm thuộc tính multiple ở đây
+        <select
+          className="service"
+          id="cars"
+          {...register('service', { required: 'Vui lòng chọn dịch vụ.' })}
+          required
         >
+          <option value="">Chọn dịch vụ</option>
           <option value="Niềng răng">Niềng răng</option>
           <option value="Cấy IMPLANT">Cấy IMPLANT</option>
           <option value="Lấy cao răng">Lấy cao răng</option>
         </select>
-      </div> */}
-
-<div className="input_date">
-  <span>Chọn dịch vụ khám bệnh:</span>
-  <div>
-    <input
-      type="checkbox"
-      id="service1"
-      name="services"
-      value="Niềng răng"
-      {...register('services')}
-    />
-    <label htmlFor="service1">Niềng răng</label>
-  </div>
-
-  <div>
-    <input
-      type="checkbox"
-      id="service2"
-      name="services"
-      value="Cấy IMPLANT"
-      {...register('services')}
-    />
-    <label htmlFor="service2">Cấy IMPLANT</label>
-  </div>
-
-  <div>
-    <input
-      type="checkbox"
-      id="service3"
-      name="services"
-      value="Lấy cao răng"
-      {...register('services')}
-    />
-    <label htmlFor="service3">Lấy cao răng</label>
-  </div>
-</div>
-
-
+      </div>
 
       <div className="input_date">
       <span>Ghi chú:</span>

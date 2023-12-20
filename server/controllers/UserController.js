@@ -18,44 +18,44 @@ export const getAllUser = (req, res) => {
 }
 
 export const sendotp = expressAsyncHandler(async (req, res) => {
-        const email = req.body.email;
+    const email = req.body.email;
 
-        const existingUser = await UserModel.findOne({ email });
+    const existingUser = await UserModel.findOne({ email });
 
-        if(!existingUser) {
-            const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
+    if(!existingUser) {
+        const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
 
-            const user = new UserModel({
-                email: email,
-                generatedOTP: generatedOTP,
-                resetTokenExpires: new Date(Date.now() + 300000)
-            });
+        const user = new UserModel({
+            email: email,
+            generatedOTP: generatedOTP,
+            resetTokenExpires: new Date(Date.now() + 300000)
+        });
 
-            await user.save()
+        await user.save()
 
-            const subject = 'Mã OTP';
-            const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`
+        const subject = 'Mã OTP';
+        const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`
 
-            await sendEmailSchedule(email, subject, text);
+        await sendEmailSchedule(email, subject, text);
+
+        res.status(200).json({ message: 'OTP sent successfully' });
+    } else if (!existingUser.password) {
+        const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
     
-            res.status(200).json({ message: 'OTP sent successfully' });
-        } else if (existingUser.password == null)  {
-            const generatedOTP = otpGenerator.generate(6, { upperCase: false, specialChars: false, alphabets: false });
-        
-            existingUser.generatedOTP = generatedOTP;
-            existingUser.resetTokenExpires = new Date(Date.now() + 300000);
-        
-            await existingUser.save();
-        
-            const subject = 'Mã OTP';
-            const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`
-        
-            await sendEmailSchedule(email, subject, text);
-        
-            res.status(200).json({ message: 'OTP sent successfully' });
-        } else {
-            res.status(500).json({ error: 'Email tồn tại' });
-        }
+        existingUser.generatedOTP = generatedOTP;
+        existingUser.resetTokenExpires = new Date(Date.now() + 300000);
+    
+        await existingUser.save();
+    
+        const subject = 'Mã OTP';
+        const text = `OTP có hạn sử dạng trong 5 phút: ${generatedOTP}`;
+    
+        await sendEmailSchedule(email, subject, text);
+    
+        res.status(200).json({ message: 'OTP sent successfully' });
+    } else {
+        res.status(200).json({ error: 'Email tồn tại' });
+    } 
 })
 
 export const verifyotp = expressAsyncHandler(async (req, res) => {
@@ -269,6 +269,12 @@ export const schedules = expressAsyncHandler(async (req, res) => {
     });
 
     const scheduleNew = await schedule.save();
+    const email = scheduleNew.email
+
+    const subject = 'Đăn ký lịch khám';
+    const text = `Đăng ký lịch khám thành công: ${scheduleNew.date}`
+
+    await sendEmailSchedule(email, subject, text);
 
     await res.status(201).send(scheduleNew);
     
@@ -293,9 +299,9 @@ export const appointment = expressAsyncHandler(async (req, res) => {
 export const historyappointment = expressAsyncHandler(async (req, res) => {
     const user_Id = req.params.userId;
 
-    const appointments = await ScheduleModel.find({ user_Id: user_Id, status : 'lich-su' });
+    const appointments = await ScheduleModel.find({ user_Id: user_Id, status: 'lich-su' });
 
-    // Trả về mảng bản ghi trực tiếp thay vì đặt chúng trong một đối tượng
+
     await res.status(201).send(appointments);
 });
 
@@ -488,4 +494,94 @@ schedule.scheduleJob('0 0 0 * * *', sendReminderBefore3Days);
 schedule.scheduleJob('0 0 0 * * *', sendReminderBefore1Day);
 schedule.scheduleJob('0 0 0 * * *', sendReminderOnTheDay);  
 
+const examination3Day = async () => {
+    const threeDaysBefore = new Date();
+    threeDaysBefore.setDate(threeDaysBefore.getDate() + 4);
+    const formattedThreeDaysBefore = threeDaysBefore.toISOString().split('T')[0];
+    console.log(formattedThreeDaysBefore);
 
+    const appointments = await MedicalRecord.find({ re_examination: formattedThreeDaysBefore, status: 'hoan-tat' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const user = await UserModel.findById(appointment.user_Id);
+            const email = user.email;
+            const service = appointment.service;
+            const rawDate = appointment.re_examination;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn tái khám bệnh sau 3 ngày. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trước 3 ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong vòng 3 ngày');
+    }
+};
+
+const examination1Day = async () => {
+    const oneDayBefore = new Date();
+    oneDayBefore.setDate(oneDayBefore.getDate() + 2);
+    const formattedOneDayBefore = oneDayBefore.toISOString().split('T')[0];
+    console.log(formattedOneDayBefore)
+
+    const appointments = await MedicalRecord.find({ re_examination: formattedOneDayBefore, status: 'hoan-tat' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const user = await UserModel.findById(appointment.user_Id);
+            const email = user.email;
+            const service = appointment.service;
+            const rawDate = appointment.re_examination;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn tái khám bệnh sau 1 ngày. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trước 1 ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong vòng 1 ngày');
+    }
+};
+
+const examinationDay = async () => {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
+    const formattedDate = currentDate.toISOString().split('T')[0];
+
+    console.log(formattedDate)
+
+    const appointments = await MedicalRecord.find({ re_examination: formattedDate, status: 'hoan-tat' });
+
+    if (appointments.length > 0) {
+        appointments.forEach(async (appointment) => {
+            const user = await UserModel.findById(appointment.user_Id);
+            const email = user.email;
+            const service = appointment.service;
+            const rawDate = appointment.re_examination;
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(rawDate));
+
+            const subject = 'Nhắc nhở về lịch hẹn';
+            const text = `Bạn có lịch hẹn tái khám bệnh hôm nay. \nNgày khám: ${formattedDate}. \nDịch vụ: ${service}.\nĐừng quên!`;
+
+            await sendEmailSchedule(email, subject, text);
+        });
+
+        console.log('Tin nhắn trong ngày đã được gửi');
+    } else {
+        console.log('Không có lịch hẹn nào trong ngày hôm nay');
+    }
+};
+
+// schedule.scheduleJob('*/5 * * * * *', examinationDay);
+// schedule.scheduleJob('*/5 * * * * *', examination1Day);
+// schedule.scheduleJob('*/5 * * * * *', examination3Day);

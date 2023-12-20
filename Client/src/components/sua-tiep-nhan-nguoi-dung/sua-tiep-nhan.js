@@ -99,8 +99,10 @@ function Suatiepnhan(props) {
                 {...register('date')}
                 defaultValue={appointment.date}
                 required
+                disabled
               />
             </div>
+
 
             <div className="input_date">
               <span>Chọn dịch vụ khám bệnh:</span>

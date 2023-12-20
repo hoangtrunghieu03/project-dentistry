@@ -1,9 +1,9 @@
 
 import React, { useEffect } from "react";
-import "./forgot.css";
+import "./email.css";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { Forgotpassword } from "../../actions/UserAction";
+import { sendotp } from "../../actions/UserAction";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import {
@@ -18,7 +18,7 @@ function Forgot(props) {
   const { register, handleSubmit } = useForm();
 
   const onSubmit =  (email) => {
-    dispatch(Forgotpassword(email));
+    dispatch(sendotp(email));
   };
   return (
     <div className="container">
@@ -46,11 +46,6 @@ function Forgot(props) {
               <CaretRightOutlined className="social-icons" />
             </button>
           </form>
-          <div className="register">
-            <span>
-              Bạn chưa có tài khoản? <Link style={{ color: '#fff' }} to="/register">Đăng ký ngay</Link>
-            </span>
-          </div>
         </div>
         {/* Background */}
         <div className="screen__background">

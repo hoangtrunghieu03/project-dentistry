@@ -17,7 +17,6 @@ import { message } from "antd";
 function Signup(props) {
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const history = useHistory();
   // const [messageApi, contextHolder] = message.useMessage();
 
@@ -27,8 +26,11 @@ function Signup(props) {
     formState: { errors },
   } = useForm();
   const onSubmit =  (data) => {
-    if (password === confirmPassword) { 
+    alert('Xác nhận tạo tài khoản?')
+    console.log(data);
+
      dispatch(SignupUser(data));
+
 
      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -42,9 +44,6 @@ function Signup(props) {
       } else {
         history.push("/");
       }
-    }
-    } else {
-      alert("Wrong repeat password!");
     }
   };
 
@@ -61,16 +60,6 @@ function Signup(props) {
                 {...register("name")}
                 placeholder="User name "
                 required
-              />
-            </div>
-            <div className="signup__field">
-              <MailOutlined />
-              <input
-                className="signup__input"
-                type="email"
-                {...register("email")}
-                required
-                placeholder="Email "
               />
             </div>
 
@@ -91,8 +80,6 @@ function Signup(props) {
               />
               {errors.phone && <p className="error-message">{errors.phone.message}</p>}
             </div>
-
-
 
             <div className="signup__field">
               <i className="ti-calendar"></i>
@@ -131,26 +118,21 @@ function Signup(props) {
                 required
               />
             </div>
+
             <div className="signup__field">
-              <LockOutlined />{" "}
-              <input
+            <i className="ti-cloud" ></i>
+              <input  
                 className="signup__input"
-                type="password"
-                {...register("repeat password")}
-                placeholder=" Repeat password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="text"
+                {...register("generatedOTP")}
                 required
+                placeholder="OTP "
               />
             </div>
             <button type="submit" value="Đăng kí" className="button signup__submit" >
               <span className="button__text">Register</span>
               <CaretRightOutlined />
             </button>
-            <div className="social-signup">
-              <span>
-                Bạn đã có tài khoản? <Link to="/login">Đăng nhập ngay!  </Link>
-              </span>
-            </div>
           </form>
         </div>
         {/* Background */}

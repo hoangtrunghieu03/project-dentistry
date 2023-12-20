@@ -4,9 +4,12 @@ export const themnguoikham = (lichhen) => async (dispatch) => {
     try {
       const {data} = await  axios.post(`http://localhost:4000/le-tan/them-tiep-nhan`, lichhen)
       if(data) {
-        document.location.href = '/tiep-nhan-le-tan';
-        alert('Tiếp nhận thành công');
-        console.log(data)
+        if (data.message) {
+          window.alert(`${data.message}`);
+          document.location.href = '/tiep-nhan-le-tan';
+        } else {
+          window.alert(`${data.error}`);
+        }
       }
     } catch (error) {
       dispatch({type: 'GET_ALL_USER_FAIL', payload: error.message})

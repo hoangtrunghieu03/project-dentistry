@@ -1,5 +1,5 @@
 import React from "react";
-import Lichsu from "../components/lich-hen-nguoi-dung/lich-hen";
+import Lichsu from "../components/lich-su-kham/lich-kham";
 function Lichsukhambenh(props) {
   return (
     <div>

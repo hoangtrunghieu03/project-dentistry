@@ -86,13 +86,13 @@ function Login(props) {
           </form>
           <div className="register">
             <span>
-              Bạn chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
+              Bạn chưa có tài khoản? <Link style={{ color: '#fff' }} to="/send-otp">Đăng ký ngay</Link>
             </span>
           </div>
 
           <div className="register">
             <span>
-              Bạn quên mật khẩu? <Link to="/forgot">Lấy lại mật khẩu</Link>
+              Bạn quên mật khẩu? <Link  style={{ color: '#fff' }} to="/forgot">Lấy lại mật khẩu</Link>
             </span>
           </div>
         </div>

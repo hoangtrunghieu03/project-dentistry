@@ -74,7 +74,9 @@ export const dangthuchien = expressAsyncHandler(async (req, res) => {
         medical.completed = 'Hoàn tất';
     } else {
         const reExaminationDate = new Date(re_examination);
+        reExaminationDate.setHours(0, 0, 0, 0); 
         const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0); 
         
         if (reExaminationDate.toISOString().split('T')[0] === currentDate.toISOString().split('T')[0]) {
             medical.re_examination = re_examination;

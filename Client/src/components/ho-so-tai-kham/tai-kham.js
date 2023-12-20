@@ -63,7 +63,7 @@ function Tiepnhan(props) {
               <th>Tên</th>
               <th>Dịch vụ</th>
               <th>Ngày tái khám</th>
-              <th>Ghi chú</th>
+              <th>Trạng thái</th>
               <th></th>
             </tr>
           </thead>
@@ -75,7 +75,7 @@ function Tiepnhan(props) {
                   <td>{medical.name}</td>
                   <td>{medical.service}</td>
                   <td>{formatDate(medical.re_examination)}</td>
-                  <td>{medical.note}</td>
+                  <td>{medical.completed}</td>
                   <Link to={`/ho-so-tai-kham-chi-tiet/${medical._id}`} className="">
                     <i className="ti-pencil-alt " style={{ paddingTop: '10px' }}></i>
                     </Link>
